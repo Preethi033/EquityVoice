@@ -6,7 +6,7 @@
 <title>EquityVoice</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Fraunces:ital,wght@0,700;1,600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Fraunces:ital,wght@0,700;1,600&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#F4F6FA;--surface:#FFFFFF;--ink:#16243A;--muted:#55667E;--line:#D8DFEA;--cool:#D6EEE8;--hot:#7A2A86;--accent:#0F7B6C;--focus:#2B6FDE;color-scheme:light;
 box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
@@ -14,8 +14,8 @@ box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:en
 :root[data-theme="dark"]{--bg:#0E1626;--surface:#16213A;--ink:#E8EEF8;--muted:#9DABC1;--line:#28375A;--cool:#1B4744;--hot:#B866C6;--accent:#4FC3AE;--focus:#7FB0FF;color-scheme:dark}
 *{box-sizing:border-box}
 html{scroll-padding-top:env(safe-area-inset-top,0px)}
-body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.55 "IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif}
-h1,h2,h3,.brand{font-family: "Roboto", "Segoe UI", Tahoma, sans-serif;;margin:0;letter-spacing:-.01em}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.55 "Montserrat",system-ui,-apple-system,"Segoe UI",sans-serif}
+h1,h2,h3,.brand{font-family: "Roboto", "Segoe UI", Tahoma, sans-serif;margin:0;letter-spacing:-.01em}
 :focus-visible{outline:3px solid var(--focus);outline-offset:2px}
 .wrap{max-width:1080px;margin:0 auto;padding:0 20px}
 body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--surface);z-index:30}
@@ -23,9 +23,9 @@ header{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;border-bottom
 .bar{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 20px;height:60px}
 .brand{font-size:22px;font-weight:700}
 .brand span{color:var(--accent)}
-.chip{font-size:13px;font-weight:500;padding:6px 12px;border-radius:99px;background:var(--bg);border:1px solid var(--line);color:var(--muted)}
+.chip{font-size:13px;font-weight:500;padding:6px 12px;border-radius:0;background:var(--bg);border:1px solid var(--line);color:var(--muted)}
 nav{position:fixed;left:0;right:0;bottom:0;z-index:20;display:flex;justify-content:space-around;background:var(--surface);border-top:1px solid var(--line);padding:6px 8px calc(6px + env(safe-area-inset-bottom,0px))}
-nav button{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;font:500 12px "IBM Plex Sans",sans-serif;padding:8px 4px;min-height:52px;border:0;border-radius:12px;background:none;color:var(--muted);cursor:pointer}
+nav button{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;font:500 12px "Montserrat",sans-serif;padding:8px 4px;min-height:52px;border:0;border-radius:0;background:none;color:var(--muted);cursor:pointer}
 nav button svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 nav button[aria-selected="true"]{background:color-mix(in srgb,var(--accent) 16%,transparent);color:var(--accent)}
 main{max-width:1080px;margin:0 auto;padding:24px 20px 110px}
@@ -36,25 +36,25 @@ section[hidden]{display:none}
 .lead{font-size:clamp(24px,3.8vw,38px);line-height:1.12;font-weight:700;max-width:20em;min-height:2.3em}
 .sub{color:var(--muted);max-width:60ch;margin:12px 0 0}
 .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:24px 0 8px}
-.stat{padding:14px 16px;border:1px solid var(--line);border-left:4px solid var(--line);border-radius:16px;background:var(--surface)}
+.stat{padding:14px 16px;border:1px solid var(--line);border-left:4px solid var(--line);border-radius:0;background:var(--surface)}
 .stat:first-child{border-left-color:var(--hot)}
 .stat:nth-child(2){border-left-color:var(--accent)}
 .stat b{display:block;font:700 28px "Bricolage Grotesque",sans-serif}
 .stat small{color:var(--muted)}
 .grid{display:grid;grid-template-columns:minmax(0,1.7fr) minmax(0,1fr);gap:28px;margin-top:20px}
 @media (max-width:860px){.grid{grid-template-columns:1fr}}
-.panel{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:20px}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:0;padding:20px}
 .panel h2{font-size:20px;margin-bottom:4px}
 .panel p.note{color:var(--muted);font-size:14px;margin:0 0 14px}
 .scroll{overflow-x:auto}
 table{border-collapse:separate;border-spacing:3px;width:100%;min-width:700px}
 th{font-weight:500;font-size:13px;color:var(--muted);text-align:center;padding:4px}
 th.row{text-align:left;color:var(--ink);font-size:14px;white-space:nowrap}
-td{height:46px;text-align:center;font:600 14px "IBM Plex Sans",sans-serif;border-radius:6px;transition:background-color .35s}
+td{height:46px;text-align:center;font:600 14px "Montserrat",sans-serif;border-radius:0;transition:background-color .35s}
 td.sup{background:repeating-linear-gradient(135deg,transparent 0 5px,var(--line) 5px 6px);color:var(--muted);font-weight:400;font-size:12px}
 .legend{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--muted);margin-top:12px}
-.ramp{flex:0 0 140px;height:10px;border-radius:5px;background:linear-gradient(90deg,var(--cool),var(--hot))}
-.btn{font:600 15px "IBM Plex Sans",sans-serif;padding:10px 16px;border-radius:10px;border:1px solid var(--ink);background:var(--ink);color:var(--surface);cursor:pointer}
+.ramp{flex:0 0 140px;height:10px;border-radius:0;background:linear-gradient(90deg,var(--cool),var(--hot))}
+.btn{font:600 15px "Montserrat",sans-serif;padding:10px 16px;border-radius:0;border:1px solid var(--ink);background:var(--ink);color:var(--surface);cursor:pointer}
 .btn.ghost{background:none;color:var(--ink)}
 .btn{min-height:44px}
 .btn:active,nav button:active{transform:scale(.97)}
@@ -102,26 +102,36 @@ nav button[data-tab][aria-selected="true"]{background:var(--accent);color:var(--
 .fix input{margin-top:5px;width:18px;height:18px;accent-color:var(--accent);flex:none}
 .fix b{display:block;font-weight:600}
 .fix span{color:var(--muted);font-size:14px}
-svg text{font:12px "IBM Plex Sans",sans-serif;fill:var(--muted)}
+svg text{font:12px "Montserrat",sans-serif;fill:var(--muted)}
 form{display:grid;gap:16px;max-width:560px}
 label{display:grid;gap:6px;font-weight:500;font-size:15px}
-input[type=number],select{font:400 16px "IBM Plex Sans",sans-serif;padding:10px 12px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink);width:100%}
+input[type=number],select{font:400 16px "Montserrat",sans-serif;padding:10px 12px;border:1px solid var(--line);border-radius:0;background:var(--surface);color:var(--ink);width:100%}
 .row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .check{display:flex;gap:10px;align-items:flex-start;font-weight:400;font-size:14px;color:var(--muted)}
-.result{margin-top:20px;padding:16px;border-left:4px solid var(--accent);background:var(--surface);border-radius:0 10px 10px 0;max-width:560px}
+.result{margin-top:20px;padding:16px;border-left:4px solid var(--accent);background:var(--surface);border-radius:0;max-width:560px}
 .adm{width:100%;min-width:0;border-spacing:0}
-.adm th,.adm td{height:auto;text-align:left;padding:10px 8px;border-bottom:1px solid var(--line);font:400 15px "IBM Plex Sans",sans-serif;border-radius:0}
+.adm th,.adm td{height:auto;text-align:left;padding:10px 8px;border-bottom:1px solid var(--line);font:400 15px "Montserrat",sans-serif;border-radius:0}
 .adm th{font-weight:600;color:var(--ink)}
 @media (prefers-reduced-motion:reduce){td{transition:none}}
 :root{--cool:#CDE7E2;--c2:#4FA89B}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--cool:#CDE7E2;--c2:#4FA89B}}
 :root[data-theme="dark"]{--cool:#CDE7E2;--c2:#4FA89B}
-body,button,td,th,.adm th,.adm td,svg text,.btn,nav button,input[type=number],select{font-family:"Poppins",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
-h1,h2,h3,.brand,.stat b,.lead{font-family:"Poppins",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;font-weight:600;letter-spacing:-.01em}
+body,button,td,th,.adm th,.adm td,svg text,.btn,nav button,input[type=number],select{font-family:"Montserrat",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+h1,h2,h3,.stat b,.lead{font-family:"Roboto","Segoe UI",Tahoma,sans-serif;font-weight:700;letter-spacing:-.01em}
 .brand{display:flex;align-items:center;font-family:"Fraunces",Georgia,"Times New Roman",serif;font-size:26px;font-weight:700;letter-spacing:-.01em}
 .brand i{font-style:italic;font-weight:600}
 .logo{width:28px;height:28px;margin-right:8px;fill:#8BC4B9}
 .logo rect:nth-child(even){fill:#fff}
+#voice-agent > *{position:static !important;inset:auto !important;width:100%;height:100%;display:block}
+/* themed surface; the transform makes the widget's fixed layer stay inside this box */
+#voice-agent{position:relative;height:640px;min-height:600px;transform:translateZ(0);overflow:hidden;background:var(--surface);border:1px solid var(--line);border-top:5px solid var(--c3);color:var(--ink);color-scheme:light dark}
+:root[data-theme="light"] #voice-agent{color-scheme:light}
+/* make it bigger and blend into the page: black/white card background drops out, leaving only text, orb and borders */
+#voice-agent elevenlabs-convai{mix-blend-mode:multiply}
+@media (min-width:900px){#voice-agent{height:780px}#voice-agent elevenlabs-convai{zoom:1.5}}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) #voice-agent elevenlabs-convai{filter:invert(1) hue-rotate(180deg);mix-blend-mode:screen}}
+:root[data-theme="dark"] #voice-agent elevenlabs-convai{filter:invert(1) hue-rotate(180deg);mix-blend-mode:screen}
+:root[data-theme="dark"] #voice-agent{color-scheme:dark}
 </style>
 </head>
 <body>
@@ -133,6 +143,7 @@ h1,h2,h3,.brand,.stat b,.lead{font-family:"Poppins",system-ui,-apple-system,"Seg
   <button role="tab" id="t-dash" aria-selected="true" data-tab="dash"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h7v7H4zM13 4h7v4h-7zM13 11h7v9h-7zM4 14h7v6H4z"/></svg>Dashboard</button>
   <button role="tab" id="t-up" aria-selected="false" data-tab="up"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V4M7 9l5-5 5 5M5 20h14"/></svg>Share my pay</button>
   <button role="tab" id="t-adm" aria-selected="false" data-tab="adm"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h10M18 7h2M4 17h2M10 17h10"/><circle cx="16" cy="7" r="2"/><circle cx="8" cy="17" r="2"/></svg>Admin</button>
+  <button role="tab" id="t-agent" aria-selected="false" data-tab="agent"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5h14a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-7l-5 4v-4H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2z"/><path d="M8 10h8M8 13h5"/></svg>Agent</button>
 </nav>
 
 <main>
@@ -181,6 +192,14 @@ h1,h2,h3,.brand,.stat b,.lead{font-family:"Poppins",system-ui,-apple-system,"Seg
   <div class="result" id="result" hidden aria-live="polite"></div>
 </section>
 
+<section id="agent" role="tabpanel" aria-labelledby="t-agent" hidden>
+  <h1 class="lead" style="min-height:0">Talk to our agent</h1>
+  <p class="sub">Ask questions about pay equity, your results, or how EquityVoice keeps your answers anonymous. Use the chat widget to type or speak.</p>
+  <section id="voice-agent" style="max-width:720px;margin:24px auto 0;padding:24px;">
+    <elevenlabs-convai agent-id="agent_3901m55cj3mcf1eavr2jxtpmmmss" variant="full" dismissible="false" default-expanded="true"></elevenlabs-convai>
+  </section>
+</section>
+
 <section id="adm" role="tabpanel" aria-labelledby="t-adm" hidden>
   <h1 class="lead" style="min-height:0">Admin</h1>
   <p class="sub">Control how small a group can be before its numbers are hidden, and review the cost of each fix.</p>
@@ -193,6 +212,7 @@ h1,h2,h3,.brand,.stat b,.lead{font-family:"Poppins",system-ui,-apple-system,"Seg
 </section>
 </main>
 
+<script src="https://unpkg.com/@elevenlabs/convai-widget-embed" async type="text/javascript"></script>
 <script>
 // ---- Data layer: swap MOCK for fetch('/gaps'), fetch('/recommendations') from Person 2's API ----
 const MOCK={
@@ -252,7 +272,7 @@ function trend(now){
 // ---- Events ----
 document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>{
   document.querySelectorAll('nav button').forEach(x=>x.setAttribute('aria-selected',x===b));
-  ['dash','up','adm'].forEach(id=>$('#'+id).hidden=id!==b.dataset.tab)});
+  ['dash','up','adm','agent'].forEach(id=>$('#'+id).hidden=id!==b.dataset.tab)});
 $('#fixes').addEventListener('change',e=>{const n=e.target.dataset.t;e.target.checked?applied.add(n):applied.delete(n);render()});
 $('#all').onclick=()=>{D.teams.forEach(t=>applied.add(t.name));render()};
 $('#none').onclick=()=>{applied.clear();render()};
@@ -266,6 +286,27 @@ $('#form').onsubmit=e=>{e.preventDefault();
   $('#result').hidden=false;
   $('#result').innerHTML=`<b>Range received.</b> The band for ${$('#role').value} is ${b[0]}k to ${b[1]}k. Your range sits ${Math.abs(d).toFixed(0)}% ${d<0?'below':'above'} the band midpoint. Your answer is combined with others before anything is shown.${$('#dis').checked?' Thank you for helping measure disability pay equity.':''}`};
 render();
+// match the agent orb to the current light/dark theme
+function themeAgent(){const w=document.querySelector('elevenlabs-convai'),c=getComputedStyle(document.documentElement);
+  if(!w)return;w.setAttribute('avatar-orb-color-1',c.getPropertyValue('--accent').trim());w.setAttribute('avatar-orb-color-2',c.getPropertyValue('--c3').trim())}
+themeAgent();
+matchMedia('(prefers-color-scheme: dark)').addEventListener('change',themeAgent);
+// pin the widget's floating layer inside the Agent box so it is truly embedded
+function embedAgent(){
+  const w=document.querySelector('elevenlabs-convai'),root=w&&w.shadowRoot;if(!root)return false;
+  root.querySelectorAll('*').forEach(el=>{
+    if(el.tagName==='STYLE')return;
+    if(getComputedStyle(el).position==='fixed')
+      el.style.cssText+=';position:absolute!important;inset:0!important;width:100%!important;height:100%!important;max-width:none!important;max-height:none!important;margin:0!important;transform:none!important;border-radius:0!important';
+  });
+  return true;
+}
+(function wait(){
+  const w=document.querySelector('elevenlabs-convai');
+  if(w&&w.shadowRoot){let q=0;embedAgent();
+    new MutationObserver(()=>{if(q)return;q=requestAnimationFrame(()=>{q=0;embedAgent()})}).observe(w.shadowRoot,{childList:true,subtree:true});
+  }else setTimeout(wait,300);
+})();
 </script>
 </body>
 </html>
