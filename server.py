@@ -2,6 +2,11 @@ import json, os, re, tempfile, uuid
 from datetime import date
 from io import BytesIO
 from typing import Literal
+import io, contextlib
+import analyze_db
+import secrets
+from fastapi import Depends
+from fastapi.security import HTTPBasic, HTTPBasicCredentials
 
 import pandas as pd
 from fastapi import FastAPI, File, HTTPException, UploadFile
@@ -228,3 +233,12 @@ from fastapi.responses import FileResponse
 @app.get("/")
 def home():
     return FileResponse(Path(__file__).parent / "equityvoice-dashboard.html")
+
+@app.get("/analysis")
+def analysis():
+    if not os.path.exists("company.db"):
+        raise HTTPException(404, "Upload and confirm a payroll file first.")
+    buf = io.StringIO()
+    with contextlib.redirect_stdout(buf):
+        analyze_db.main()
+    return {"report": buf.getvalue()}
