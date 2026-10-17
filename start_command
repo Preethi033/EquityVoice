@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: equityvoice
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn server:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: GEMINI_API_KEY
+        sync: false          # Render asks you to paste this once
+      - key: ID_SALT
+        generateValue: true  # Render makes a random one
+      - key: APP_USER
+        value: admin
+      - key: APP_PASS
+        generateValue: true  # Render makes a random one; read it in the dashboard
