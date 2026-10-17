@@ -1,0 +1,267 @@
+{
+  "01_baseline_fair_control": {
+    "rows": 5000,
+    "description": "No bias seeded. Should show ~0% adjusted gaps (false-positive test).",
+    "seeded_pay_penalties": [],
+    "seeded_promotion_penalties": []
+  },
+  "02_gender_gap": {
+    "rows": 5000,
+    "description": "Women paid less in Engineering and Finance; non-binary slightly less everywhere.",
+    "seeded_pay_penalties": [
+      {
+        "who": {
+          "gender": "Woman",
+          "department": "Engineering"
+        },
+        "pct": -8.0
+      },
+      {
+        "who": {
+          "gender": "Woman",
+          "department": "Finance"
+        },
+        "pct": -6.0
+      },
+      {
+        "who": {
+          "gender": "Non-binary"
+        },
+        "pct": -4.0
+      }
+    ],
+    "seeded_promotion_penalties": []
+  },
+  "02b_gender_gap_partial_fix": {
+    "rows": 5000,
+    "description": "Same people as 02 after a partial fix: 70% of the gap closed.",
+    "seeded_pay_penalties": [
+      {
+        "who": {
+          "gender": "Woman",
+          "department": "Engineering"
+        },
+        "pct": -2.4
+      },
+      {
+        "who": {
+          "gender": "Woman",
+          "department": "Finance"
+        },
+        "pct": -1.7999999999999998
+      },
+      {
+        "who": {
+          "gender": "Non-binary"
+        },
+        "pct": -1.2
+      }
+    ],
+    "seeded_promotion_penalties": []
+  },
+  "03_racial_gap": {
+    "rows": 5000,
+    "description": "Black staff lower in Sales, Hispanic staff lower in Operations, Native American lower overall.",
+    "seeded_pay_penalties": [
+      {
+        "who": {
+          "ethnicity": "Black",
+          "department": "Sales"
+        },
+        "pct": -7.000000000000001
+      },
+      {
+        "who": {
+          "ethnicity": "Hispanic",
+          "department": "Operations"
+        },
+        "pct": -5.0
+      },
+      {
+        "who": {
+          "ethnicity": "Native American"
+        },
+        "pct": -6.0
+      }
+    ],
+    "seeded_promotion_penalties": []
+  },
+  "04_disability_gap": {
+    "rows": 5000,
+    "description": "Employees with disabilities paid less overall, more in Engineering.",
+    "seeded_pay_penalties": [
+      {
+        "who": {
+          "disability_status": "Has disability"
+        },
+        "pct": -4.0
+      },
+      {
+        "who": {
+          "disability_status": "Has disability",
+          "department": "Engineering"
+        },
+        "pct": -6.0
+      }
+    ],
+    "seeded_promotion_penalties": []
+  },
+  "05_intersectional": {
+    "rows": 8000,
+    "description": "Stacked: women -3%, Black staff -3%, disability -3%, PLUS Black women extra -5%, women with disabilities extra -4%.",
+    "seeded_pay_penalties": [
+      {
+        "who": {
+          "gender": "Woman"
+        },
+        "pct": -3.0
+      },
+      {
+        "who": {
+          "ethnicity": "Black"
+        },
+        "pct": -3.0
+      },
+      {
+        "who": {
+          "disability_status": "Has disability"
+        },
+        "pct": -3.0
+      },
+      {
+        "who": {
+          "gender": "Woman",
+          "ethnicity": "Black"
+        },
+        "pct": -5.0
+      },
+      {
+        "who": {
+          "gender": "Woman",
+          "disability_status": "Has disability"
+        },
+        "pct": -4.0
+      }
+    ],
+    "seeded_promotion_penalties": []
+  },
+  "06_glass_ceiling_pipeline": {
+    "rows": 5000,
+    "description": "Equal pay at each level BUT women/Black staff promoted less. Raw gap is large; adjusted gap ~0. Tests raw-vs-adjusted.",
+    "seeded_pay_penalties": [],
+    "seeded_promotion_penalties": [
+      {
+        "who": {
+          "gender": "Woman"
+        },
+        "score_shift": 2.5
+      },
+      {
+        "who": {
+          "ethnicity": "Black"
+        },
+        "score_shift": 2.0
+      }
+    ]
+  },
+  "07_enterprise_large": {
+    "rows": 50000,
+    "description": "Large mixed-bias company for performance testing.",
+    "seeded_pay_penalties": [
+      {
+        "who": {
+          "gender": "Woman",
+          "department": "Engineering"
+        },
+        "pct": -5.0
+      },
+      {
+        "who": {
+          "gender": "Woman",
+          "department": "Finance"
+        },
+        "pct": -4.0
+      },
+      {
+        "who": {
+          "ethnicity": "Black",
+          "department": "Sales"
+        },
+        "pct": -5.0
+      },
+      {
+        "who": {
+          "ethnicity": "Hispanic",
+          "department": "Operations"
+        },
+        "pct": -4.0
+      },
+      {
+        "who": {
+          "disability_status": "Has disability"
+        },
+        "pct": -3.0
+      },
+      {
+        "who": {
+          "gender": "Woman",
+          "ethnicity": "Black"
+        },
+        "pct": -4.0
+      }
+    ],
+    "seeded_promotion_penalties": []
+  },
+  "08_small_startup": {
+    "rows": 60,
+    "description": "Tiny company: most groups < 5 people. Tests privacy suppression (k-anonymity).",
+    "seeded_pay_penalties": [
+      {
+        "who": {
+          "gender": "Woman"
+        },
+        "pct": -6.0
+      }
+    ],
+    "seeded_promotion_penalties": []
+  },
+  "09_messy_realistic": {
+    "rows": 5050,
+    "description": "Dirty data: label variants, $ strings, blanks, duplicates, outliers, negative tenure. Underlying bias = 05_intersectional.",
+    "seeded_pay_penalties": [
+      {
+        "who": {
+          "gender": "Woman"
+        },
+        "pct": -3.0
+      },
+      {
+        "who": {
+          "ethnicity": "Black"
+        },
+        "pct": -3.0
+      },
+      {
+        "who": {
+          "disability_status": "Has disability"
+        },
+        "pct": -3.0
+      },
+      {
+        "who": {
+          "gender": "Woman",
+          "ethnicity": "Black"
+        },
+        "pct": -5.0
+      },
+      {
+        "who": {
+          "gender": "Woman",
+          "disability_status": "Has disability"
+        },
+        "pct": -4.0
+      }
+    ],
+    "seeded_promotion_penalties": []
+  }
+}
