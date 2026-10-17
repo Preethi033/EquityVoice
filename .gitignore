@@ -1,0 +1,3 @@
+.venv/
+salaries.db
+__pycache__/

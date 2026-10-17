@@ -137,7 +137,7 @@ h1,h2,h3,.stat b,.lead{font-family:"Roboto","Segoe UI",Tahoma,sans-serif;font-we
 <body>
 <header><div class="bar">
   <div class="brand"><svg class="logo" viewBox="0 0 28 28" aria-hidden="true"><rect x="2" y="10" width="4" height="8" rx="2"/><rect x="9" y="5" width="4" height="18" rx="2"/><rect x="16" y="8" width="4" height="12" rx="2"/><rect x="23" y="12" width="3" height="4" rx="1.5"/></svg><i>Equity</i><span>Voice</span></div>
-  <span class="chip">Demo company</span>
+  <span class="chip">Demo company · Synthetic demo data</span>
 </div></header>
 <nav role="tablist" aria-label="Views">
   <button role="tab" id="t-dash" aria-selected="true" data-tab="dash"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h7v7H4zM13 4h7v4h-7zM13 11h7v9h-7zM4 14h7v6H4z"/></svg>Dashboard</button>
@@ -186,7 +186,7 @@ h1,h2,h3,.stat b,.lead{font-family:"Roboto","Segoe UI",Tahoma,sans-serif;font-we
       <label>Salary range, high (USD)<input type="number" id="hi" min="20000" step="1000" required value="120000"></label>
     </div>
     <label class="check"><input type="checkbox" id="consent" required> I agree to share this range for pay equity analysis.</label>
-    <label class="check"><input type="checkbox" id="dis"> Optional: I’m a person with a disability. This lets us measure the disability pay gap. It is never shown for small groups.</label>
+    <label class="check"><input type="checkbox" id="dis"> Optional: I’m a person with a disability. Leave unchecked if you prefer not to disclose.</label>
     <div><button class="btn" type="submit">Submit my range</button></div>
   </form>
   <div class="result" id="result" hidden aria-live="polite"></div>
@@ -279,12 +279,69 @@ $('#none').onclick=()=>{applied.clear();render()};
 $('#min').oninput=render;
 $('#role').innerHTML=Object.keys(D.roles).map(r=>`<option>${r}</option>`).join('');
 $('#team').innerHTML=D.teams.map(t=>`<option>${t.name}</option>`).join('');
-$('#form').onsubmit=e=>{e.preventDefault();
-  const b=D.roles[$('#role').value], lo=+$('#lo').value, hi=+$('#hi').value;
-  if(hi<lo){$('#result').hidden=false;$('#result').textContent='The high end of your range must be at least the low end. Check both numbers and try again.';return}
-  const mid=(lo+hi)/2/1000, bm=(b[0]+b[1])/2, d=(mid-bm)/bm*100;
-  $('#result').hidden=false;
-  $('#result').innerHTML=`<b>Range received.</b> The band for ${$('#role').value} is ${b[0]}k to ${b[1]}k. Your range sits ${Math.abs(d).toFixed(0)}% ${d<0?'below':'above'} the band midpoint. Your answer is combined with others before anything is shown.${$('#dis').checked?' Thank you for helping measure disability pay equity.':''}`};
+$('#form').onsubmit = async e => {
+  e.preventDefault();
+
+  const result = $('#result');
+  const lo = Number($('#lo').value);
+  const hi = Number($('#hi').value);
+  result.hidden = false;
+
+  if (
+    !Number.isInteger(lo) ||
+    !Number.isInteger(hi) ||
+    lo <= 0 ||
+    hi <= 0 ||
+    hi < lo
+  ) {
+    result.textContent =
+      'Enter positive whole-dollar salaries. The high end must be at least the low end.';
+    return;
+  }
+
+  if (!$('#consent').checked) {
+    result.textContent = 'Please agree before submitting.';
+    return;
+  }
+
+  const button = e.target.querySelector('[type="submit"]');
+  button.disabled = true;
+  result.textContent = 'Saving…';
+
+  try {
+    const response = await fetch('/submit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        position: $('#role').value,
+        salary_min: lo,
+        salary_max: hi,
+        team: $('#team').value,
+        consent: $('#consent').checked,
+        disability_status: $('#dis').checked
+          ? 'Has disability'
+          : null
+      })
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(
+        typeof data.detail === 'string'
+          ? data.detail
+          : 'Could not save. Check your entries and try again.'
+      );
+    }
+
+    result.textContent =
+      'Saved! Your role, team, salary range, consent, and optional disclosure were saved.';
+  } catch (error) {
+    result.textContent = 'Submission failed: ' + error.message;
+  } finally {
+    button.disabled = false;
+  }
+};
 render();
 // match the agent orb to the current light/dark theme
 function themeAgent(){const w=document.querySelector('elevenlabs-convai'),c=getComputedStyle(document.documentElement);
