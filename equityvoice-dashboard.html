@@ -208,6 +208,13 @@ h1,h2,h3,.stat b,.lead{font-family:"Roboto","Segoe UI",Tahoma,sans-serif;font-we
     <input type="range" id="min" min="3" max="10" value="5" style="width:100%;accent-color:var(--accent)">
     <p class="note" id="supnote" style="margin-top:10px"></p>
   </div>
+  <div class="panel" style="margin-top:20px;max-width:640px">
+    <h2>Upload payroll</h2>
+    <p class="note">CSV or Excel, any column layout. The AI proposes a column mapping and you confirm it before anything is loaded.</p>
+    <input type="file" id="pfile" accept=".csv,.xlsx,.xlsm" aria-label="Payroll file">
+    <div style="margin-top:12px"><button class="btn" id="pgo">Analyze file</button></div>
+    <div class="result" id="pres" hidden aria-live="polite"></div>
+  </div>
   <div class="panel" style="margin-top:20px"><div class="scroll"><table class="adm" id="admtab"></table></div></div>
 </section>
 </main>
@@ -342,6 +349,30 @@ $('#form').onsubmit = async e => {
     button.disabled = false;
   }
 };
+// ---- Payroll upload ----
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+async function api(url,body){
+  const r=await fetch(url,{method:'POST',body});
+  const j=await r.json().catch(()=>({}));
+  if(!r.ok)throw new Error(j.detail||'Something went wrong. Try again.');
+  return j}
+$('#pgo').onclick=async()=>{
+  const f=$('#pfile').files[0],out=$('#pres');out.hidden=false;
+  if(!f){out.textContent='Choose a file first.';return}
+  out.textContent='Reading your file. This can take a few seconds…';
+  try{
+    const fd=new FormData();fd.append('file',f);
+    const j=await api('/upload',fd);
+    const cols=Object.entries(j.mapping.columns).filter(e=>e[1]).map(e=>`<li>${esc(e[0])}: column “${esc(e[1])}”</li>`).join('');
+    const lv=Object.entries(j.level_map).map(e=>`<li>${esc(e[0])}: ${esc(e[1])}</li>`).join('');
+    out.innerHTML=`<b>Check what the AI found</b><ul>${cols}</ul><p>Salaries are read as ${esc(j.mapping.salary_period)} figures.</p><b>Levels it assigned</b><ul>${lv}</ul><p>${j.accepted} rows are ready and ${j.rejected} were rejected.</p>`
+      +(j.can_confirm?'<button class="btn" id="pok">Looks right, load it</button>':'<p>Too many rows were rejected to load safely. Check the file and try again.</p>');
+    const ok=$('#pok');
+    if(ok)ok.onclick=async()=>{
+      ok.disabled=true;
+      try{const d=await api('/confirm/'+j.id);out.textContent=`Loaded ${d.employees} employees.`}
+      catch(e){out.textContent=e.message}}
+  }catch(e){out.textContent=e.message}};
 render();
 // match the agent orb to the current light/dark theme
 function themeAgent(){const w=document.querySelector('elevenlabs-convai'),c=getComputedStyle(document.documentElement);
