@@ -370,8 +370,18 @@ $('#pgo').onclick=async()=>{
     const ok=$('#pok');
     if(ok)ok.onclick=async()=>{
       ok.disabled=true;
-      try{const d=await api('/confirm/'+j.id);out.textContent=`Loaded ${d.employees} employees.`}
-      catch(e){out.textContent=e.message}}
+      try{
+        const d=await api('/confirm/'+j.id);
+        out.textContent=`Loaded ${d.employees} employees. Running analysis…`;
+        const r=await fetch('/analysis');
+        const a=await r.json().catch(()=>({}));
+        if(!r.ok) throw new Error(a.detail||'Analysis failed.');
+        out.textContent=`Loaded ${d.employees} employees.`;
+        const pre=document.createElement('pre');
+        pre.style.cssText='white-space:pre-wrap;overflow-x:auto;font-size:13px;margin-top:12px';
+        pre.textContent=a.report;
+        out.appendChild(pre);
+      }catch(e){out.textContent=e.message}}
   }catch(e){out.textContent=e.message}};
 render();
 // match the agent orb to the current light/dark theme
