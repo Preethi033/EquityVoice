@@ -8,6 +8,8 @@ services:
     envVars:
       - key: GEMINI_API_KEY
         sync: false          # Render asks you to paste this once
+      - key: GEMINI_MODEL
+        value: gemini-3.5-flash-8b  # fastest gemini version
       - key: ID_SALT
         generateValue: true  # Render makes a random one
       - key: APP_USER

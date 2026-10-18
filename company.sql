@@ -1,6 +1,6 @@
 BEGIN TRANSACTION;
 CREATE TABLE audit_log(ts TEXT DEFAULT CURRENT_TIMESTAMP, action TEXT);
-INSERT INTO "audit_log" VALUES('2026-10-18 00:42:13','initial load');
+INSERT INTO "audit_log" VALUES('2026-10-18 00:49:16','initial load');
 CREATE TABLE disability_status(
   employee_id TEXT PRIMARY KEY REFERENCES employees(employee_id) ON DELETE CASCADE,
   has_disability INTEGER NOT NULL CHECK(has_disability IN (0,1))
