@@ -8,125 +8,164 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Fraunces:ital,wght@0,700;1,600&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#F4F6FA;--surface:#FFFFFF;--ink:#16243A;--muted:#55667E;--line:#D8DFEA;--cool:#D6EEE8;--hot:#7A2A86;--accent:#0F7B6C;--focus:#2B6FDE;color-scheme:light;
+/* Theme tokens (light, then dark via OS setting, then dark via data-theme) */
+:root{--bg:#E6E9EF;--surface:#FFFFFF;--ink:#0B1F3A;--muted:#4A5568;--line:#CBD2DC;--cool:#CDE7E2;--hot:#0B1F3A;--accent:#1F3B5C;--focus:#2F5FA8;--c1:#2B2F36;--c2:#4FA89B;--c3:#4A6A8F;--c4:#1F3B5C;--on:#FFFFFF;--hotink:#FFFFFF;--ink2:#0B1F3A;--bad:#B3402F;--warn:#B8801A;--good:#2C7F86;color-scheme:light;
 box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0E1626;--surface:#16213A;--ink:#E8EEF8;--muted:#9DABC1;--line:#28375A;--cool:#1B4744;--hot:#B866C6;--accent:#4FC3AE;--focus:#7FB0FF;color-scheme:dark}}
-:root[data-theme="dark"]{--bg:#0E1626;--surface:#16213A;--ink:#E8EEF8;--muted:#9DABC1;--line:#28375A;--cool:#1B4744;--hot:#B866C6;--accent:#4FC3AE;--focus:#7FB0FF;color-scheme:dark}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#08162B;--surface:#0B1F3A;--ink:#E6E9EF;--muted:#A7B1BE;--line:#1F3B5C;--hot:#6C95CC;--accent:#8FB0DA;--focus:#7FA8E8;--c1:#C4CCD6;--c3:#5F7FA6;--c4:#A7B1BE;--on:#08162B;--hotink:#08162B;--ink2:#08162B;--bad:#E07A68;--warn:#E0B25C;--good:#6FB5B0;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#08162B;--surface:#0B1F3A;--ink:#E6E9EF;--muted:#A7B1BE;--line:#1F3B5C;--hot:#6C95CC;--accent:#8FB0DA;--focus:#7FA8E8;--c1:#C4CCD6;--c3:#5F7FA6;--c4:#A7B1BE;--on:#08162B;--hotink:#08162B;--ink2:#08162B;--bad:#E07A68;--warn:#E0B25C;--good:#6FB5B0;color-scheme:dark}
 *{box-sizing:border-box}
+[hidden]{display:none!important}
 html{scroll-padding-top:env(safe-area-inset-top,0px)}
-body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.55 "Montserrat",system-ui,-apple-system,"Segoe UI",sans-serif}
-h1,h2,h3,.brand{font-family: "Roboto", "Segoe UI", Tahoma, sans-serif;margin:0;letter-spacing:-.01em}
+body{margin:0;background:linear-gradient(180deg,color-mix(in srgb,var(--c3) 12%,var(--bg)),var(--bg) 380px) no-repeat,var(--bg);color:var(--ink);font:400 16px/1.55 "Montserrat",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+h1,h2,h3,.stat b,.lead{font-family:"Roboto","Segoe UI",Tahoma,sans-serif;font-weight:700;margin:0;letter-spacing:-.01em}
+button,td,th,input,select,svg text{font-family:"Montserrat",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
 :focus-visible{outline:3px solid var(--focus);outline-offset:2px}
-.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
-body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--surface);z-index:30}
-header{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;border-bottom:1px solid var(--line);background:var(--surface)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:#0F4C5C;z-index:30}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:#0F4C5C;border-bottom:3px solid;border-image:linear-gradient(90deg,var(--hot),var(--c2)) 1}
 .bar{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 20px;height:60px}
-.brand{font-size:22px;font-weight:700}
-.brand span{color:var(--accent)}
-.chip{font-size:13px;font-weight:500;padding:6px 12px;border-radius:0;background:var(--bg);border:1px solid var(--line);color:var(--muted)}
+.brand{display:flex;align-items:center;font-family:"Fraunces",Georgia,"Times New Roman",serif;font-size:26px;font-weight:700;letter-spacing:-.01em;color:#8BC4B9}
+.brand i{font-style:italic;font-weight:600}
+.brand span{color:#fff}
+.logo{width:28px;height:28px;margin-right:8px;fill:#8BC4B9}
+.logo rect:nth-child(even){fill:#fff}
+.chip{font-size:13px;font-weight:500;padding:6px 12px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.28);color:#E3F1EE}
 nav{position:fixed;left:0;right:0;bottom:0;z-index:20;display:flex;justify-content:space-around;background:var(--surface);border-top:1px solid var(--line);padding:6px 8px calc(6px + env(safe-area-inset-bottom,0px))}
-nav button{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;font:500 12px "Montserrat",sans-serif;padding:8px 4px;min-height:52px;border:0;border-radius:0;background:none;color:var(--muted);cursor:pointer}
+nav button{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;font:500 12px "Montserrat",sans-serif;padding:8px 4px;min-height:52px;border:0;background:none;color:var(--muted);cursor:pointer}
 nav button svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-nav button[aria-selected="true"]{background:color-mix(in srgb,var(--accent) 16%,transparent);color:var(--accent)}
+nav button[aria-selected="true"]{background:var(--accent);color:var(--on)}
 main{max-width:1080px;margin:0 auto;padding:24px 20px 110px}
-@media (min-width:900px){nav{top:calc(60px + env(safe-area-inset-top,0px));right:auto;width:200px;flex-direction:column;justify-content:flex-start;gap:6px;border-top:0;border-right:1px solid var(--line);padding:16px 12px}
+@media (min-width:900px){nav{top:calc(63px + env(safe-area-inset-top,0px));right:auto;width:200px;flex-direction:column;justify-content:flex-start;gap:6px;border-top:0;border-right:1px solid var(--line);padding:16px 12px}
 nav button{flex:none;flex-direction:row;gap:12px;font-size:15px;padding:10px 14px;justify-content:flex-start;min-height:0}
 main{margin-left:220px;margin-right:auto;padding-bottom:56px}}
-section[hidden]{display:none}
-.lead{font-size:clamp(24px,3.8vw,38px);line-height:1.12;font-weight:700;max-width:20em;min-height:2.3em}
+.lead{font-size:clamp(24px,3.8vw,38px);line-height:1.12;max-width:20em;min-height:2.3em;color:var(--hot)}
 .sub{color:var(--muted);max-width:60ch;margin:12px 0 0}
 .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:24px 0 8px}
-.stat{padding:14px 16px;border:1px solid var(--line);border-left:4px solid var(--line);border-radius:0;background:var(--surface)}
-.stat:first-child{border-left-color:var(--hot)}
-.stat:nth-child(2){border-left-color:var(--accent)}
-.stat b{display:block;font:700 28px "Bricolage Grotesque",sans-serif}
-.stat small{color:var(--muted)}
+.stat{padding:14px 16px;color:#fff}
+.stat:nth-child(1){background:#0F4C5C}.stat:nth-child(2){background:#1B6B7A}.stat:nth-child(3){background:#2F3E46}.stat:nth-child(4){background:#2C7F86}
+.stat b{display:block;font-size:28px;color:#fff}
+.stat small{color:#DCEEEA}
 .grid{display:grid;grid-template-columns:minmax(0,1.7fr) minmax(0,1fr);gap:28px;margin-top:20px}
 @media (max-width:860px){.grid{grid-template-columns:1fr}}
-.panel{background:var(--surface);border:1px solid var(--line);border-radius:0;padding:20px}
+.panel{background:var(--surface);border:1px solid var(--line);padding:20px}
+section#dash>.panel{border-top:5px solid var(--c3)}
+.grid .panel:first-child{border-top:5px solid var(--hot)}
+.grid .panel:last-child{border-top:5px solid var(--accent)}
+#adm .panel{border-top:5px solid var(--c4)}
 .panel h2{font-size:20px;margin-bottom:4px}
-.panel p.note{color:var(--muted);font-size:14px;margin:0 0 14px}
+.panel p.note,.note{color:var(--muted);font-size:14px;margin:0 0 14px}
 .scroll{overflow-x:auto}
 table{border-collapse:separate;border-spacing:3px;width:100%;min-width:700px}
 th{font-weight:500;font-size:13px;color:var(--muted);text-align:center;padding:4px}
-th.row{text-align:left;color:var(--ink);font-size:14px;white-space:nowrap}
-td{height:46px;text-align:center;font:600 14px "Montserrat",sans-serif;border-radius:0;transition:background-color .35s}
+th.row{text-align:left;color:var(--ink);font-size:14px}
+td{height:46px;text-align:center;font:600 14px "Montserrat",sans-serif;transition:background-color .35s}
 td.sup{background:repeating-linear-gradient(135deg,transparent 0 5px,var(--line) 5px 6px);color:var(--muted);font-weight:400;font-size:12px}
+td.pl{background:var(--bg);font-weight:500}
 .legend{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--muted);margin-top:12px}
-.ramp{flex:0 0 140px;height:10px;border-radius:0;background:linear-gradient(90deg,var(--cool),var(--hot))}
-.btn{font:600 15px "Montserrat",sans-serif;padding:10px 16px;border-radius:0;border:1px solid var(--ink);background:var(--ink);color:var(--surface);cursor:pointer}
-.btn.ghost{background:none;color:var(--ink)}
-.btn{min-height:44px}
-.btn:active,nav button:active{transform:scale(.97)}
-:root{--c1:#E4572E;--c2:#F2A900;--c3:#2B6FDE;--c4:#8E44AD;--on:#fff;--hotink:#fff;--ink2:#16243A}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--c1:#FF8A65;--c2:#FFC94D;--c3:#7FB0FF;--c4:#C59BE8;--on:#08231F;--hotink:#0E1626;--ink2:#0E1626;--cool:#9FDCCB}}
-:root[data-theme="dark"]{--c1:#FF8A65;--c2:#FFC94D;--c3:#7FB0FF;--c4:#C59BE8;--on:#08231F;--hotink:#0E1626;--ink2:#0E1626;--cool:#9FDCCB}
-body{background:linear-gradient(180deg,color-mix(in srgb,var(--c3) 12%,var(--bg)),var(--bg) 380px) no-repeat,var(--bg)}
-header{border-bottom:3px solid;border-image:linear-gradient(90deg,var(--hot),var(--c1),var(--c2),var(--accent),var(--c3)) 1}
-@media (min-width:900px){nav{top:calc(63px + env(safe-area-inset-top,0px))}}
-.btn{background:var(--accent);border-color:var(--accent);color:var(--on)}
+.ramp{flex:0 0 140px;height:10px;background:linear-gradient(90deg,var(--cool),var(--c2),var(--hot))}
+.btn{font:600 15px "Montserrat",sans-serif;padding:10px 16px;min-height:44px;border:1px solid var(--accent);background:var(--accent);color:var(--on);cursor:pointer}
 .btn.ghost{background:none;border-color:var(--ink);color:var(--ink)}
-nav button[data-tab="up"][aria-selected="true"]{color:var(--c1);background:color-mix(in srgb,var(--c1) 16%,transparent)}
-nav button[data-tab="adm"][aria-selected="true"]{color:var(--c4);background:color-mix(in srgb,var(--c4) 16%,transparent)}
-.stat:nth-child(1){--sc:var(--hot)}.stat:nth-child(2){--sc:var(--accent)}.stat:nth-child(3){--sc:var(--c3)}.stat:nth-child(4){--sc:var(--c1)}
-.stat:nth-child(n){border-left-color:var(--sc);background:color-mix(in srgb,var(--sc) 10%,var(--surface))}
-.stat b{color:var(--sc)}
-.ramp{background:linear-gradient(90deg,var(--cool),var(--c2),var(--hot))}
-.grid .panel:first-child{border-top:5px solid var(--hot)}
-.grid .panel:last-child{border-top:5px solid var(--accent)}
-section#dash>.panel{border-top:5px solid var(--c3)}
-#adm .panel{border-top:5px solid var(--c4)}
-#up .result{border-left-color:var(--c1)}
-.fix{border-left:4px solid var(--tc,var(--line));padding-left:12px}
+.btn:disabled{opacity:.6;cursor:wait}
+.btn:active,nav button:active{transform:scale(.97)}
 .dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:8px}
-:root{--bg:#F3F5F8;--surface:#FFFFFF;--ink:#12263F;--muted:#5B6B80;--line:#DCE2EA;--cool:#D9ECEE;--hot:#9B2F57;--accent:#0E7C86;--focus:#2F5FA8;--c1:#A8741A;--c2:#E3B04B;--c3:#3B5B92;--c4:#5E4B8B;--on:#FFFFFF;--hotink:#FFFFFF;--ink2:#12263F}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0C1626;--surface:#13223A;--ink:#E7EDF5;--muted:#9AA9BD;--line:#243653;--cool:#9FD3D6;--hot:#D0668A;--accent:#4DB6BF;--focus:#7FA8E8;--c1:#E0B25C;--c2:#E8C070;--c3:#8FB0E8;--c4:#B3A2DE;--on:#08222A;--hotink:#0C1626;--ink2:#0C1626}}
-:root[data-theme="dark"]{--bg:#0C1626;--surface:#13223A;--ink:#E7EDF5;--muted:#9AA9BD;--line:#243653;--cool:#9FD3D6;--hot:#D0668A;--accent:#4DB6BF;--focus:#7FA8E8;--c1:#E0B25C;--c2:#E8C070;--c3:#8FB0E8;--c4:#B3A2DE;--on:#08222A;--hotink:#0C1626;--ink2:#0C1626}
-header{border-image:linear-gradient(90deg,var(--hot),var(--c2)) 1}
-header{background:#0F4C5C}
-.brand{color:#8BC4B9}.brand span{color:#fff}
-.chip{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.28);color:#E3F1EE}
-.lead{color:var(--hot)}
-.stat:nth-child(1){--sc2:#0F4C5C}.stat:nth-child(2){--sc2:#1B6B7A}.stat:nth-child(3){--sc2:#2F3E46}.stat:nth-child(4){--sc2:#2C7F86}
-.stat:nth-child(n){background:var(--sc2);border:0;color:#fff}
-.stat:nth-child(n) b{color:#fff}
-.stat:nth-child(n) small{color:#DCEEEA}
-nav button[data-tab][aria-selected="true"]{background:var(--accent);color:var(--on)}
-:root{--bg:#F2F7F6;--surface:#FFFFFF;--ink:#2F3E46;--muted:#55666D;--line:#D3E2DF;--cool:#F2F7F6;--c2:#8BC4B9;--hot:#0F4C5C;--accent:#1B6B7A;--c1:#2F3E46;--c3:#3F8F94;--c4:#0F4C5C;--on:#FFFFFF;--hotink:#FFFFFF;--ink2:#2F3E46}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#09252C;--surface:#0F3A45;--ink:#F2F7F6;--muted:#9EC5BE;--line:#1B5461;--cool:#F2F7F6;--c2:#8BC4B9;--hot:#5CB3C2;--accent:#8BC4B9;--c1:#C9DAD7;--c3:#6FB5B0;--c4:#8BC4B9;--on:#09252C;--hotink:#09252C;--ink2:#09252C}}
-:root[data-theme="dark"]{--bg:#09252C;--surface:#0F3A45;--ink:#F2F7F6;--muted:#9EC5BE;--line:#1B5461;--cool:#F2F7F6;--c2:#8BC4B9;--hot:#5CB3C2;--accent:#8BC4B9;--c1:#C9DAD7;--c3:#6FB5B0;--c4:#8BC4B9;--on:#09252C;--hotink:#09252C;--ink2:#09252C}
-:root{--bg:#E6E9EF;--surface:#FFFFFF;--ink:#0B1F3A;--muted:#4A5568;--line:#CBD2DC;--cool:#E6E9EF;--c2:#A7B1BE;--hot:#0B1F3A;--accent:#1F3B5C;--c1:#2B2F36;--c3:#4A6A8F;--c4:#1F3B5C;--on:#FFFFFF;--hotink:#FFFFFF;--ink2:#0B1F3A}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#08162B;--surface:#0B1F3A;--ink:#E6E9EF;--muted:#A7B1BE;--line:#1F3B5C;--cool:#E6E9EF;--c2:#A7B1BE;--hot:#6C95CC;--accent:#8FB0DA;--c1:#C4CCD6;--c3:#5F7FA6;--c4:#A7B1BE;--on:#08162B;--hotink:#08162B;--ink2:#08162B}}
-:root[data-theme="dark"]{--bg:#08162B;--surface:#0B1F3A;--ink:#E6E9EF;--muted:#A7B1BE;--line:#1F3B5C;--cool:#E6E9EF;--c2:#A7B1BE;--hot:#6C95CC;--accent:#8FB0DA;--c1:#C4CCD6;--c3:#5F7FA6;--c4:#A7B1BE;--on:#08162B;--hotink:#08162B;--ink2:#08162B}
-.fix{display:flex;gap:12px;padding:12px 0;border-top:1px solid var(--line);cursor:pointer}
+.fix{display:flex;gap:12px;padding:12px 0 12px 12px;border-top:1px solid var(--line);border-left:4px solid var(--tc,var(--line));cursor:pointer}
 .fix input{margin-top:5px;width:18px;height:18px;accent-color:var(--accent);flex:none}
 .fix b{display:block;font-weight:600}
 .fix span{color:var(--muted);font-size:14px}
-svg text{font:12px "Montserrat",sans-serif;fill:var(--muted)}
+svg text{font-size:12px;fill:var(--muted)}
 form{display:grid;gap:16px;max-width:560px}
 label{display:grid;gap:6px;font-weight:500;font-size:15px}
-input[type=number],select{font:400 16px "Montserrat",sans-serif;padding:10px 12px;border:1px solid var(--line);border-radius:0;background:var(--surface);color:var(--ink);width:100%}
+input[type=number],input[type=text],select{font:400 16px "Montserrat",sans-serif;padding:10px 12px;border:1px solid var(--line);background:var(--surface);color:var(--ink);width:100%}
 .row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .check{display:flex;gap:10px;align-items:flex-start;font-weight:400;font-size:14px;color:var(--muted)}
-.result{margin-top:20px;padding:16px;border-left:4px solid var(--accent);background:var(--surface);border-radius:0;max-width:560px}
+.result{margin-top:20px;padding:16px;border-left:4px solid var(--accent);background:var(--surface);max-width:640px}
 .adm{width:100%;min-width:0;border-spacing:0}
-.adm th,.adm td{height:auto;text-align:left;padding:10px 8px;border-bottom:1px solid var(--line);font:400 15px "Montserrat",sans-serif;border-radius:0}
+.adm th,.adm td{height:auto;text-align:left;padding:10px 8px;border-bottom:1px solid var(--line);font:400 15px "Montserrat",sans-serif}
 .adm th{font-weight:600;color:var(--ink)}
 @media (prefers-reduced-motion:reduce){td{transition:none}}
-:root{--cool:#CDE7E2;--c2:#4FA89B}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--cool:#CDE7E2;--c2:#4FA89B}}
-:root[data-theme="dark"]{--cool:#CDE7E2;--c2:#4FA89B}
-body,button,td,th,.adm th,.adm td,svg text,.btn,nav button,input[type=number],select{font-family:"Montserrat",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
-h1,h2,h3,.stat b,.lead{font-family:"Roboto","Segoe UI",Tahoma,sans-serif;font-weight:700;letter-spacing:-.01em}
-.brand{display:flex;align-items:center;font-family:"Fraunces",Georgia,"Times New Roman",serif;font-size:26px;font-weight:700;letter-spacing:-.01em}
-.brand i{font-style:italic;font-weight:600}
-.logo{width:28px;height:28px;margin-right:8px;fill:#8BC4B9}
-.logo rect:nth-child(even){fill:#fff}
+
+/* New: upload strip, benchmarks, suggestions, charts */
+.up{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.up input[type=file]{flex:1 1 240px;min-width:0;font:400 15px "Montserrat",sans-serif;color:var(--ink)}
+#pres details{margin-top:10px}
+#pres summary{cursor:pointer;font-weight:600}
+#pres ul{margin:6px 0;padding-left:20px}
+.viewsel{display:flex;align-items:center;gap:10px;margin:0 0 12px;max-width:320px}
+.pill{font:600 11px "Montserrat",sans-serif;padding:3px 8px;text-transform:uppercase;letter-spacing:.04em;background:var(--bg);border:1px solid var(--line);color:var(--ink);font-style:normal;white-space:nowrap}
+.pill.bad{background:var(--bad);border-color:var(--bad);color:#fff}
+.pill.ok{background:var(--good);border-color:var(--good);color:#fff}
+.brow{padding:10px 0;border-top:1px solid var(--line)}
+.bh{display:flex;gap:10px;flex-wrap:wrap;align-items:baseline}
+.bh span{color:var(--muted);font-size:14px;flex:1 1 180px}
+.bar2{height:8px;background:var(--bg);margin-top:5px}
+.bar2 i{display:block;height:100%}
+.bar2 .nat{background:var(--c2)}.bar2 .hi{background:var(--accent)}.bar2 .low{background:var(--bad)}
+.sg{display:flex;gap:12px;padding:12px 0 12px 12px;border-top:1px solid var(--line);border-left:4px solid var(--sv,var(--line))}
+.sg.high{--sv:var(--bad)}.sg.medium{--sv:var(--warn)}.sg.low{--sv:var(--c3)}
+.sg .pill{background:var(--sv,var(--bg));border-color:var(--sv,var(--line));color:#fff;align-self:flex-start;min-width:64px;text-align:center}
+.sg b{display:block;font-weight:600}
+.sg p{margin:2px 0 0;color:var(--muted);font-size:14px}
+.rl{display:flex;justify-content:space-between;font-size:14px;margin-top:8px}
+.rep{position:relative;height:12px;background:var(--bg);margin:4px 0 8px}
+.rep i{display:block;height:100%;background:var(--accent)}
+.rep s{position:absolute;top:-3px;bottom:-3px;width:2px;background:var(--ink)}
+.sp{display:grid;grid-template-columns:90px 1fr 120px;gap:10px;align-items:center;padding:8px 0;font-size:14px;border-top:1px solid var(--line)}
+.rg{position:relative;height:14px;background:var(--bg)}
+.rg u{position:absolute;top:6px;height:2px;background:var(--muted);text-decoration:none}
+.rg i{position:absolute;top:2px;bottom:2px;background:var(--c2)}
+.rg s{position:absolute;top:0;bottom:0;width:2px;background:var(--ink)}
+
+.iss{padding:12px 0 12px 12px;border-top:1px solid var(--line);border-left:4px solid var(--tc,var(--line))}
+.iss.on{background:color-mix(in srgb,var(--accent) 9%,transparent)}
+.ih{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.ih b{font-weight:600}
+.im{display:block;color:var(--muted);font-size:13px;margin-top:2px}
+.sl{display:grid;gap:4px;margin-top:8px;font-weight:500;font-size:14px}
+.sl input{width:100%;accent-color:var(--accent)}
+.io{display:block;font-size:14px;font-weight:600}
+.pill.high{background:var(--bad);border-color:var(--bad);color:var(--on)}
+.pill.medium{background:var(--warn);border-color:var(--warn);color:var(--on)}
+.pill.low{background:var(--c3);border-color:var(--c3);color:var(--on)}
+.goal{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:8px 0;border-top:1px solid var(--line);font-size:14px}
+.fix .rmx,.iss .rmx,.goal .rmx{margin-left:auto;display:inline-block;background:none;border:0;padding:4px 0;color:var(--muted);text-decoration:underline;cursor:pointer;font:500 13px "Montserrat",sans-serif}
+.sgb{margin-top:8px;min-height:36px;padding:6px 12px;font-size:13px}
+.sgb:disabled{cursor:default}
+#addf{max-width:none}
+.fix b .pill{margin-left:6px;vertical-align:middle}
+
+.scale{position:relative;height:18px;background:var(--bg);margin:22px 0 6px}
+.scale i{position:absolute;top:0;bottom:0;background:var(--c2);opacity:.55}
+.scale s{position:absolute;top:0;bottom:0;width:2px;background:var(--ink)}
+.scale u{position:absolute;top:-8px;bottom:-8px;width:4px;margin-left:-2px;background:var(--bad);text-decoration:none}
+.scale u::after{content:"You";position:absolute;top:-16px;left:50%;transform:translateX(-50%);font:600 11px "Montserrat",sans-serif;color:var(--ink)}
+
+.rp{max-width:720px;margin:24px auto 0;padding:14px 16px;background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--warn)}
+.rp p{margin:8px 0 0;font-size:15px}
+.rp ul{margin:8px 0 0;padding-left:20px;font-size:14px;color:var(--muted)}
+
+.gh{font:600 12px "Montserrat",sans-serif;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);margin:14px 0 2px}
+.gh:first-child{margin-top:0}
+.gb{display:grid;grid-template-columns:minmax(0,150px) 1fr 64px;gap:8px;align-items:center;padding:5px 0;font-size:14px}
+.gb .bar2{margin:0}
+.gb small{color:var(--muted)}
+.gv{text-align:right;font-weight:600}
+
+.sc{max-height:min(420px,60vh);overflow-y:auto;overscroll-behavior:contain;padding-right:6px;scrollbar-width:thin}
+.sc.tall{max-height:min(520px,70vh)}
+.sc.short{max-height:min(300px,50vh)}
+.vs{max-height:min(460px,65vh);overflow:auto;overscroll-behavior:contain;scrollbar-width:thin}
+.vs thead th{position:sticky;top:0;z-index:1;background:var(--surface)}
+.sc:focus-visible,.vs:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+
+/* Groups page: flip between ethnicity and disability */
+.seg{display:flex;margin:20px 0 16px}
+.seg button{font:600 15px "Montserrat",sans-serif;padding:10px 20px;min-height:44px;border:1px solid var(--accent);background:none;color:var(--ink);cursor:pointer}
+.seg button+button{border-left:0}
+.seg button[aria-selected="true"]{background:var(--accent);color:var(--on)}
+
+/* Agent widget embed (unchanged) */
 #voice-agent > *{position:static !important;inset:auto !important;width:100%;height:100%;display:block}
-/* themed surface; the transform makes the widget's fixed layer stay inside this box */
 #voice-agent{position:relative;height:640px;min-height:600px;transform:translateZ(0);overflow:hidden;background:var(--surface);border:1px solid var(--line);border-top:5px solid var(--c3);color:var(--ink);color-scheme:light dark}
 :root[data-theme="light"] #voice-agent{color-scheme:light}
-/* make it bigger and blend into the page: black/white card background drops out, leaving only text, orb and borders */
 #voice-agent elevenlabs-convai{mix-blend-mode:multiply}
 @media (min-width:900px){#voice-agent{height:780px}#voice-agent elevenlabs-convai{zoom:1.5}}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) #voice-agent elevenlabs-convai{filter:invert(1) hue-rotate(180deg);mix-blend-mode:screen}}
@@ -137,91 +176,159 @@ h1,h2,h3,.stat b,.lead{font-family:"Roboto","Segoe UI",Tahoma,sans-serif;font-we
 <body>
 <header><div class="bar">
   <div class="brand"><svg class="logo" viewBox="0 0 28 28" aria-hidden="true"><rect x="2" y="10" width="4" height="8" rx="2"/><rect x="9" y="5" width="4" height="18" rx="2"/><rect x="16" y="8" width="4" height="12" rx="2"/><rect x="23" y="12" width="3" height="4" rx="1.5"/></svg><i>Equity</i><span>Voice</span></div>
-  <span class="chip">Demo company · Synthetic demo data</span>
+  <span class="chip" id="chip">Demo company · Synthetic demo data</span>
 </div></header>
 <nav role="tablist" aria-label="Views">
   <button role="tab" id="t-dash" aria-selected="true" data-tab="dash"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h7v7H4zM13 4h7v4h-7zM13 11h7v9h-7zM4 14h7v6H4z"/></svg>Dashboard</button>
-  <button role="tab" id="t-up" aria-selected="false" data-tab="up"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V4M7 9l5-5 5 5M5 20h14"/></svg>Share my pay</button>
-  <button role="tab" id="t-adm" aria-selected="false" data-tab="adm"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h10M18 7h2M4 17h2M10 17h10"/><circle cx="16" cy="7" r="2"/><circle cx="8" cy="17" r="2"/></svg>Admin</button>
   <button role="tab" id="t-agent" aria-selected="false" data-tab="agent"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5h14a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-7l-5 4v-4H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2z"/><path d="M8 10h8M8 13h5"/></svg>Agent</button>
+  <button role="tab" id="t-up" aria-selected="false" data-tab="up"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V4M7 9l5-5 5 5M5 20h14"/></svg>Check my pay</button>
+  <button role="tab" id="t-adm" aria-selected="false" data-tab="adm"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h10M18 7h2M4 17h2M10 17h10"/><circle cx="16" cy="7" r="2"/><circle cx="8" cy="17" r="2"/></svg>Admin</button>
 </nav>
 
 <main>
 <section id="dash" role="tabpanel" aria-labelledby="t-dash">
-  <h1 class="lead" id="lead"></h1>
+  <div class="panel" id="upl">
+    <h2>Upload your payroll</h2>
+    <p class="note">Drop in a CSV or Excel file with any column layout. One click reads it, loads it and updates everything below, compared against the national figures. Groups under the minimum size stay hidden.</p>
+    <div class="up">
+      <input type="file" id="pfile" accept=".csv,.xlsx,.xlsm" aria-label="Payroll file">
+      <button class="btn" id="pgo">Analyze my file</button>
+    </div>
+    <div class="result" id="pres" hidden aria-live="polite"></div>
+  </div>
+
+  <div class="seg" id="lens" role="tablist" aria-label="Compare pay by" style="margin-top:24px">
+    <button role="tab" data-lens="gender" aria-selected="true">Gender</button>
+    <button role="tab" data-lens="ethnicity" aria-selected="false">Ethnicity</button>
+    <button role="tab" data-lens="disability" aria-selected="false">Disability</button>
+  </div>
+  <h1 class="lead" id="lead" style="margin-top:12px"></h1>
   <p class="sub" id="sub"></p>
   <div class="stats" id="stats"></div>
   <div class="grid">
     <div class="panel">
-      <h2>Pay gap by team and group</h2>
-      <p class="note">Adjusted for role, level and tenure. Negative means paid less than the comparison group.</p>
-      <div class="scroll"><table id="heat" aria-label="Pay gap heatmap"></table></div>
+      <h2>Summary: worst areas overall</h2>
+      <p class="note" id="summN"></p>
+      <div id="summ" class="sc" tabindex="0" role="region" aria-label="Worst areas overall"></div>
+    </div>
+    <div class="panel">
+      <h2>Pay gap by group</h2>
+      <p class="note" id="grpN"></p>
+      <div id="grp" class="sc" tabindex="0" role="region" aria-label="Pay gap by group"></div>
+    </div>
+  </div>
+  <div class="grid">
+    <div class="panel">
+      <h2 id="heatT">Pay gap by team and group</h2>
+      <p class="note" id="heatN"></p>
+      <label class="viewsel" id="viewwrap" hidden>View<select id="view" aria-label="Group the table by"></select></label>
+      <div class="scroll vs" tabindex="0" role="region" aria-label="Pay gap table"><table id="heat" aria-label="Pay gap table"></table></div>
       <div class="legend"><span>Parity</span><span class="ramp"></span><span>12% gap or more</span></div>
     </div>
     <div class="panel">
-      <h2>Top fixes</h2>
-      <p class="note">Select fixes to see the gap close.</p>
-      <div id="fixes"></div>
+      <h2>Fix sandbox</h2>
+      <p class="note">Try fixes without changing any data. Each issue comes from your analysis. Drag its slider to choose how much of that gap to close and watch the headline, cost and charts react.</p>
+      <div id="fixes" class="sc tall" tabindex="0" role="region" aria-label="Fix sandbox issues"></div>
+      <label class="viewsel" id="addwrap" style="margin-top:12px;max-width:none"><select id="addiss" aria-label="Add another issue to the sandbox"></select></label>
       <div style="display:flex;gap:8px;margin-top:14px;flex-wrap:wrap">
-        <button class="btn" id="all">Apply all fixes</button>
-        <button class="btn ghost" id="none">Reset</button>
+        <button class="btn" id="all">Close all gaps</button>
+        <button class="btn ghost" id="none">Reset sandbox</button>
       </div>
+      <div id="goals" style="margin-top:14px"></div>
     </div>
   </div>
+
   <div class="panel" style="margin-top:28px">
+    <h2>You vs. national</h2>
+    <p class="note" id="benchN"></p>
+    <div id="bench" class="sc" tabindex="0" role="region" aria-label="You versus national"></div>
+    <p class="note" style="margin:12px 0 0">National figures are placeholders until they are replaced with current BLS, Census and EEOC data.</p>
+  </div>
+
+  <div class="panel" style="margin-top:28px">
+      <h2>Suggestions</h2>
+      <p class="note">Each one is tied to a finding in your data. Use Fix in sandbox to try one and see its effect, or Track as goal for ones that are not pay fixes. Averages show where to look, not why, so check role, tenure and performance before changing pay.</p>
+      <div id="sugg" class="sc tall" tabindex="0" role="region" aria-label="Suggestions"></div>
+    </div>
+
+  <div class="grid" id="liveRow" hidden>
+    <div class="panel">
+      <h2 id="spT">Pay range by level</h2>
+      <p class="note" id="spN">Bar is the middle half of pay, the dark tick is the median, the thin line is the full range.</p>
+      <div id="spread" class="sc short" tabindex="0" role="region" aria-label="Pay range by level"></div>
+    </div>
+    <div class="panel">
+      <h2 id="repT">Women by level</h2>
+      <p class="note" id="repN">Black tick is the national share of women in the workforce.</p>
+      <div id="rep" class="sc short" tabindex="0" role="region" aria-label="Women by level"></div>
+    </div>
+  </div>
+
+  <div class="panel" id="trendP" style="margin-top:28px">
     <h2>Women’s pay gap over time</h2>
-    <p class="note">Solid line is measured. Dashed line is where the next quarter lands.</p>
+    <p class="note">Solid line is measured. Dashed line is where the next quarter lands. Demo data only.</p>
     <div class="scroll"><svg id="trend" viewBox="0 0 640 210" width="100%" role="img" aria-label="Trend of women’s adjusted pay gap by quarter"></svg></div>
   </div>
 </section>
 
 <section id="up" role="tabpanel" aria-labelledby="t-up" hidden>
-  <h1 class="lead" style="min-height:0">Share your pay. Stay anonymous.</h1>
-  <p class="sub">Add your role and salary range. Your answer is combined with others and only shown in groups large enough that no one can be picked out.</p>
+  <h1 class="lead" style="min-height:0">Is your pay normal?</h1>
+  <p class="sub">Enter your role, level and salary to see how it compares with national figures. Nothing you enter here is saved or sent anywhere.</p>
   <form id="form" style="margin-top:24px">
     <label>Role<select id="role"></select></label>
-    <label>Team<select id="team"></select></label>
+    <label>Level<select id="level"></select></label>
     <div class="row2">
-      <label>Salary range, low (USD)<input type="number" id="lo" min="20000" step="1000" required value="100000"></label>
-      <label>Salary range, high (USD)<input type="number" id="hi" min="20000" step="1000" required value="120000"></label>
+      <label>Your pay (USD)<input type="number" id="sal" min="1" step="any" required value="100000"></label>
+      <label>Paid<select id="period"><option value="annual">per year</option><option value="monthly">per month</option><option value="biweekly">every two weeks</option><option value="hourly">per hour</option></select></label>
     </div>
-    <label class="check"><input type="checkbox" id="consent" required> I agree to share this range for pay equity analysis.</label>
-    <label class="check"><input type="checkbox" id="dis"> Optional: I’m a person with a disability. Leave unchecked if you prefer not to disclose.</label>
-    <div><button class="btn" type="submit">Submit my range</button></div>
+    <div><button class="btn" type="submit">Check my pay</button></div>
   </form>
   <div class="result" id="result" hidden aria-live="polite"></div>
 </section>
 
 <section id="agent" role="tabpanel" aria-labelledby="t-agent" hidden>
-  <h1 class="lead" style="min-height:0">Talk to our agent</h1>
-  <p class="sub">Ask questions about pay equity, your results, or how EquityVoice keeps your answers anonymous. Use the chat widget to type or speak.</p>
+  <h1 class="lead" style="min-height:0">Practice a pay conversation</h1>
+  <p class="sub">This is a roleplay. You are talking with a simulated employee about pay, and the agent plays that employee. Use the chat widget to type or speak.</p>
+  <div class="rp" role="note">
+    <span class="pill">Roleplay</span>
+    <p>You are roleplaying a conversation with an employee about pay. The agent is playing the employee. It is not a real person, and anything it says about its pay, role or history is made up for practice.</p>
+    <ul>
+      <li>Try: the employee asks why a teammate in the same role is paid more.</li>
+      <li>Try: the employee asks for a raise and wants to know how pay bands work.</li>
+      <li>Try: the employee has heard there is a pay gap and wants to know what you are doing about it.</li>
+    </ul>
+  </div>
   <section id="voice-agent" style="max-width:720px;margin:24px auto 0;padding:24px;">
     <elevenlabs-convai agent-id="agent_3901m55cj3mcf1eavr2jxtpmmmss" variant="full" dismissible="false" default-expanded="true"></elevenlabs-convai>
   </section>
+  <p class="note" style="max-width:720px;margin:10px auto 0">Roleplay only. Do not share real employee details in this chat.</p>
 </section>
 
 <section id="adm" role="tabpanel" aria-labelledby="t-adm" hidden>
   <h1 class="lead" style="min-height:0">Admin</h1>
-  <p class="sub">Control how small a group can be before its numbers are hidden, and review the cost of each fix.</p>
+  <p class="sub">See what data the dashboard is showing, control how small a group can be before its numbers are hidden, and review the cost of each fix. Uploads now happen on the Dashboard.</p>
   <div class="panel" style="margin-top:24px;max-width:640px">
+    <h2>Data source</h2>
+    <p class="note" id="src" style="margin-bottom:10px"></p>
+    <button class="btn ghost" id="reset" hidden>Switch back to demo data</button>
+  </div>
+  <div class="panel" style="margin-top:20px;max-width:640px">
     <label for="min">Minimum group size: <b id="minv">5</b> people</label>
     <input type="range" id="min" min="3" max="10" value="5" style="width:100%;accent-color:var(--accent)">
     <p class="note" id="supnote" style="margin-top:10px"></p>
   </div>
   <div class="panel" style="margin-top:20px;max-width:640px">
-    <h2>Upload payroll</h2>
-    <p class="note">CSV or Excel, any column layout. The AI proposes a column mapping and you confirm it before anything is loaded.</p>
-    <input type="file" id="pfile" accept=".csv,.xlsx,.xlsm" aria-label="Payroll file">
-    <div style="margin-top:12px"><button class="btn" id="pgo">Analyze file</button></div>
-    <div class="result" id="pres" hidden aria-live="polite"></div>
+    <h2>Last upload: how the AI read it</h2>
+    <div id="upinfo" style="font-size:15px"></div>
   </div>
-  <div class="panel" style="margin-top:20px"><div class="scroll"><table class="adm" id="admtab"></table></div></div>
+  <div class="panel" style="margin-top:20px"><h2>Fix costs</h2><p class="note">Yearly cost to close each issue, and what your sandbox plan would spend.</p><div class="scroll vs" tabindex="0" role="region" aria-label="Fix costs"><table class="adm" id="admtab"></table></div></div>
 </section>
 </main>
 
 <script src="https://unpkg.com/@elevenlabs/convai-widget-embed" async type="text/javascript"></script>
 <script>
-// ---- Data layer: swap MOCK for fetch('/gaps'), fetch('/recommendations') from Person 2's API ----
+// ---- Data layer ----
+// DEMO data is shown until a payroll file is uploaded. After upload, LIVE holds the /analysis "data" object.
 const MOCK={
   cols:['Women','Black','Hispanic/Latino','Asian','Women of color','People with disabilities'],
   teams:[
@@ -235,155 +342,390 @@ const MOCK={
   trend:['Q1 ’25','Q2 ’25','Q3 ’25','Q4 ’25','Q1 ’26','Q2 ’26','Q3 ’26'].map((q,i)=>[q,[8.1,7.9,7.4,7.0,6.6,6.3,6.1][i]]),
   roles:{'Software Engineer':[110,150],'Product Manager':[115,155],'Designer':[95,130],'Account Executive':[85,125],'Support Specialist':[55,80],'Financial Analyst':[75,105]}
 };
+// National figures: PLACEHOLDERS. Keep in sync with BENCHMARKS in analyze_db.py.
+const NAT={avg_annual_pay:59000,women_to_men_pay_ratio:.83,pct_women:.47,pct_women_in_management:.41,pct_disability:.08};
+const NATL=[['avg_annual_pay','Average annual pay','$'],['women_to_men_pay_ratio','Women/men pay ratio','ratio'],['pct_women','% women in workforce','%'],['pct_women_in_management','% women in management+','%'],['pct_disability','% employees with a disability','%']];
+const F={'$':x=>'$'+Math.round(x).toLocaleString(),'%':x=>(x*100).toFixed(1)+'%','ratio':x=>x.toFixed(2)};
+// National pay by role: PLACEHOLDERS (median for a mid-level job). Replace with current BLS OEWS figures.
+const NATROLES={'Software Engineer':120000,'Product Manager':125000,'Designer':85000,'Account Executive':90000,'Support Specialist':48000,'Financial Analyst':80000};
+const LVLX={Entry:.75,Mid:1,Senior:1.3,Management:1.6,Executive:2.2}; // placeholder level multipliers
+const PER={annual:1,monthly:12,biweekly:26,hourly:2080};
+const cdf=z=>{const t=1/(1+.2316419*Math.abs(z)),d=.3989423*Math.exp(-z*z/2),p=d*t*(.3193815+t*(-.3565638+t*(1.781478+t*(-1.821256+t*1.330274))));return z>0?1-p:p};
+const ord=n=>n+(['th','st','nd','rd'][(n%100-20)%10]||['th','st','nd','rd'][n%100]||'th');
 const TC=['var(--hot)','var(--c1)','var(--c2)','var(--accent)','var(--c3)','var(--c4)'];
-const D=MOCK, FIX=.15; // an applied fix leaves 15% of the original gap
-const $=s=>document.querySelector(s), applied=new Set();
+const D=MOCK;
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const fmt=n=>'$'+Math.round(n/1000)+'k';
-const val=(t,j)=>t.g[j][0]*(applied.has(t.name)?FIX:1);
+const P1=v=>v.toFixed(1)+'%';
+let LIVE=null, UP=null, SB={}; // SB: issue name -> % of that issue's gap closed in the sandbox
+const lvl=n=>SB[n]||0, nfix=()=>fixList().filter(f=>lvl(f.name)>0).length;
+const GOALS=new Set(); // non-pay suggestions the user chose to track
+const EXTRA=new Set(); // issues added to the sandbox beyond the default top 6
+
+// demo helpers
+const val=(t,j)=>t.g[j][0]*(1-lvl(t.name)/100);
 const women=()=>{let s=0,h=0;D.teams.forEach(t=>{s+=val(t,0)*t.hc;h+=t.hc});return -s/h};
-const base=(()=>{let s=0,h=0;D.teams.forEach(t=>{s+=t.g[0][0]*t.hc;h+=t.hc});return -s/h})();
+const baseDemo=(()=>{let s=0,h=0;D.teams.forEach(t=>{s+=t.g[0][0]*t.hc;h+=t.hc});return -s/h})();
 const impact=t=>-t.g.reduce((a,x)=>a+x[0],0)/t.g.length;
 const order=[...D.teams].sort((a,b)=>impact(b)-impact(a));
 
-function render(){
-  const now=women(), cost=[...applied].reduce((a,n)=>a+D.fixes[n][0],0);
-  const dg=-D.teams.reduce((a,t)=>a+val(t,5)*t.hc,0)/D.teams.reduce((a,t)=>a+t.hc,0);
-  const total=Object.values(D.fixes).reduce((a,x)=>a+x[0],0), min=+$('#min').value;
-  $('#lead').textContent=applied.size?`With these fixes, the gap falls from ${base.toFixed(1)}% to ${now.toFixed(1)}%.`:`Women are paid ${base.toFixed(1)}% less than men in comparable roles.`;
-  $('#sub').textContent=applied.size?`You have chosen ${applied.size} of ${D.teams.length} team fixes. Review the heatmap to see which groups still lag.`:`Closing every team’s gap would cost about ${fmt(total)} a year. Pick fixes on the right to see the effect.`;
-  $('#stats').innerHTML=`<div class="stat"><b>${base.toFixed(1)}%</b><small>Women’s gap today</small></div><div class="stat"><b>${now.toFixed(1)}%</b><small>Women’s gap after fixes</small></div><div class="stat"><b>${fmt(cost)}</b><small>Yearly cost of selected fixes</small></div><div class="stat"><b>${dg.toFixed(1)}%</b><small>Gap for people with disabilities</small></div>`;
-  let h='<thead><tr><th></th>'+D.cols.map(c=>`<th scope="col">${c}</th>`).join('')+'</tr></thead><tbody>';
-  D.teams.forEach(t=>{h+=`<tr><th class="row" scope="row"><i class="dot" style="background:${TC[D.teams.indexOf(t)]}"></i>${t.name}</th>`;
-    t.g.forEach((c,j)=>{ if(c[1]<min){h+=`<td class="sup" title="Hidden to protect privacy">n&lt;${min}</td>`;return}
-      const v=val(t,j),k=Math.min(Math.abs(v)/12,1),bg=k<.5?`color-mix(in srgb,var(--c2) ${Math.round(k*200)}%,var(--cool))`:`color-mix(in srgb,var(--hot) ${Math.round((k-.5)*200)}%,var(--c2))`;
-      h+=`<td style="background:${bg};color:var(${k>.55?'--hotink':'--ink2'})">${v.toFixed(1)}%</td>`});
-    h+='</tr>'});
-  $('#heat').innerHTML=h+'</tbody>';
-  $('#fixes').innerHTML=order.map(t=>{const f=D.fixes[t.name];return `<label class="fix" style="--tc:${TC[D.teams.indexOf(t)]}"><input type="checkbox" data-t="${t.name}" ${applied.has(t.name)?'checked':''}><div><b>${t.name}: bring pay to band</b><span>${f[1]} people · ${fmt(f[0])} a year · closes about ${(impact(t)*(1-FIX)).toFixed(1)} points</span></div></label>`}).join('');
-  trend(now);
-  let sup=0;D.teams.forEach(t=>t.g.forEach(c=>{if(c[1]<min)sup++}));
-  $('#minv').textContent=min;$('#supnote').textContent=`${sup} of ${D.teams.length*D.cols.length} cells are hidden at this setting.`;
-  $('#admtab').innerHTML='<tr><th>Team</th><th>People</th><th>Fix cost</th><th>Status</th></tr>'+order.map(t=>`<tr><td>${t.name}</td><td>${t.hc}</td><td>${fmt(D.fixes[t.name][0])}</td><td>${applied.has(t.name)?'Selected':'Not selected'}</td></tr>`).join('');
+// same ramp as before, shared by both modes
+function heatBg(v){const k=Math.min(Math.abs(v)/12,1);
+  return [k<.5?`color-mix(in srgb,var(--c2) ${Math.round(k*200)}%,var(--cool))`:`color-mix(in srgb,var(--hot) ${Math.round((k-.5)*200)}%,var(--c2))`,k>.55?'--hotink':'--ink2']}
+
+// fixes: demo = one per team; live = worst role gaps from the analysis
+// Issues = the main problems found in the data. Every sandbox fix hangs off one issue, so cost and impact come from that issue's numbers.
+const sevOf=g=>g<=-8?'high':g<=-4?'medium':'low';
+function allIssues(){
+  if(LENS!=='gender')return lensIssues();
+  if(!LIVE){const H=D.teams.reduce((a,t)=>a+t.hc,0);
+    return order.map(t=>({name:t.name,label:t.name,gap:t.g[0][0],cost:D.fixes[t.name][0],ppl:D.fixes[t.name][1],pts:-t.g[0][0]*t.hc/H,sev:sevOf(t.g[0][0]),shown:true,col:TC[D.teams.indexOf(t)]}))}
+  const wn=LIVE.gap_by_position.reduce((a,c)=>a+c.n_women,0)||1,out=[];
+  const mk=(c,name,i,ov)=>({name,label:name,gap:c.gap_pct,cost:c.cost_to_close,ppl:c.people_below_target,pts:-c.gap_pct*c.n_women/wn,sev:c.severity,overlap:ov,col:TC[i%6]});
+  LIVE.gap_by_position.filter(c=>c.gap_pct<0).forEach((c,i)=>{const f=mk(c,c.group,i,false);f.extra=i>=6;f.shown=!f.extra||EXTRA.has(f.name);out.push(f)});
+  Object.entries(LIVE.gap_by_dimension||{}).forEach(([d,t])=>t.filter(c=>c.gap_pct<0).forEach((c,i)=>{const f=mk(c,`${d}: ${c.group}`,i,true);f.extra=true;f.shown=EXTRA.has(f.name);out.push(f)}));
+  return out;
 }
+const fixList=()=>allIssues().filter(f=>f.shown);
+
+function heatDemo(min){
+  let h='<thead><tr><th></th>'+D.cols.map(c=>`<th scope="col">${c}</th>`).join('')+'</tr></thead><tbody>',hid=0;
+  D.teams.forEach(t=>{h+=`<tr><th class="row" scope="row"><i class="dot" style="background:${TC[D.teams.indexOf(t)]}"></i>${t.name}</th>`;
+    t.g.forEach((c,j)=>{if(c[1]<min){hid++;h+=`<td class="sup" title="Hidden to protect privacy">n&lt;${min}</td>`;return}
+      const v=val(t,j),[bg,ink]=heatBg(v);
+      h+=`<td style="background:${bg};color:var(${ink})">${v.toFixed(1)}%</td>`});
+    h+='</tr>'});
+  $('#heat').innerHTML=h+'</tbody>';return hid;
+}
+function heatLive(min){
+  const v=$('#view').value,tbl=v==='level'?LIVE.gap_by_level:v==='position'?LIVE.gap_by_position:(LIVE.gap_by_dimension[v]||[]);
+  let hid=0,h='<thead><tr><th></th><th scope="col">Gap</th><th scope="col">Women</th><th scope="col">Men</th><th scope="col">Women below men’s median</th><th scope="col">Cost to close</th></tr></thead><tbody>';
+  tbl.forEach(c=>{if(Math.min(c.n_women,c.n_men)<min){hid++;return}
+    const g=c.gap_pct*(v==='position'?1-lvl(c.group)/100:1),[bg,ink]=heatBg(g);
+    h+=`<tr><th class="row" scope="row">${esc(c.group)}</th><td style="background:${bg};color:var(--${ink.slice(2)})">${g.toFixed(1)}%</td><td class="pl">${c.n_women}</td><td class="pl">${c.n_men}</td><td class="pl">${c.people_below_target}</td><td class="pl">${fmt(c.cost_to_close)}</td></tr>`});
+  if(!tbl.length||hid===tbl.length)h+=`<tr><td colspan="6" class="sup">No groups are large enough to show</td></tr>`;
+  $('#heat').innerHTML=h+'</tbody>';return hid;
+}
+
+// Summary + group comparison. Live mode reads the optional LIVE.group_gaps list from /analysis:
+// [{dimension:'ethnicity'|'disability', group, n, gap_pct, severity, ...}] where gap_pct compares the group with everyone else.
+function summaryItems(min){
+  const out=[];
+  if(!LIVE){
+    D.teams.forEach(t=>t.g.forEach((c,j)=>{if(c[1]<min||(LENS!=='gender'&&!LCOLS[LENS].includes(j)))return;const v=LENS==='gender'?val(t,j):gv(t,j,LENS);out.push({label:`${t.name} · ${D.cols[j]}`,gap:v,sev:sevOf(v),detail:`${D.cols[j]} on the ${t.name} team, n=${c[1]}`})}));
+  }else{
+    (LIVE.group_gaps||[]).filter(c=>LENS==='gender'||c.dimension===LENS).forEach(c=>out.push({label:c.group,gap:scl(c.gap_pct,c.dimension+':'+c.group),sev:c.severity,detail:`${c.dimension}, compared with everyone else, n=${c.n}`}));
+    if(LENS==='gender')LIVE.worst_areas.forEach(w=>out.push({label:w.label,gap:w.metric,sev:w.severity,detail:w.detail}));
+  }
+  return out.sort((a,b)=>a.gap-b.gap).slice(0,6);
+}
+function groupRows(min,base,now){
+  if(LENS!=='gender'){const d=groupData(LENS,min);return d.ok?d.rows.map(r=>({kind:LENS==='ethnicity'?'Ethnicity':'Disability',label:r.label,gap:r.gap,n:r.n})):[]}
+  const rows=[];
+  if(!LIVE){
+    const kind=['Gender','Ethnicity','Ethnicity','Ethnicity','Gender and ethnicity','Disability'];
+    D.cols.forEach((c,j)=>{let sw=0,sn=0;D.teams.forEach(t=>{const n=t.g[j][1];if(n<min)return;sw+=val(t,j)*n;sn+=n});
+      rows.push({kind:kind[j],label:c,gap:sn?sw/sn:null,n:sn})});
+    return rows.sort((a,b)=>['Gender','Gender and ethnicity','Ethnicity','Disability'].indexOf(a.kind)-['Gender','Gender and ethnicity','Ethnicity','Disability'].indexOf(b.kind));
+  }
+  const fem=(LIVE.pay_by_gender||[]).find(x=>x.gender==='Female');
+  if(base!=null)rows.push({kind:'Gender',label:'Women (same role)',gap:-now,n:fem?fem.n:null});
+  (LIVE.group_gaps||[]).forEach(c=>rows.push({kind:c.dimension.charAt(0).toUpperCase()+c.dimension.slice(1),label:c.group,gap:scl(c.gap_pct,c.dimension+':'+c.group),n:c.n}));
+  return rows;
+}
+function groupHtml(rows){
+  const col=g=>g>=0?'var(--good)':{high:'var(--bad)',medium:'var(--warn)',low:'var(--c3)'}[sevOf(g)];
+  return [...new Set(rows.map(r=>r.kind))].map(k=>`<div class="gh">${esc(k)}</div>`+rows.filter(r=>r.kind===k).map(r=>
+    r.gap==null?`<div class="gb"><span>${esc(r.label)}</span><span></span><span class="gv" title="Hidden to protect privacy">Hidden</span></div>`
+    :`<div class="gb"><span>${esc(r.label)}${r.n!=null?` <small>n=${r.n}</small>`:''}</span><div class="bar2"><i style="width:${Math.min(Math.abs(r.gap)/12,1)*100}%;background:${col(r.gap)}"></i></div><span class="gv">${r.gap>0?'+':''}${r.gap.toFixed(1)}%</span></div>`).join('')).join('');
+}
+
+function benchHtml(){
+  const rows=LENS!=='gender'?benchLens():(LIVE?LIVE.benchmarks:NATL.map(([k,l,kind])=>({key:k,label:l,kind,company:null,national:NAT[k]})));
+  return rows.map(b=>{const f=F[b.kind],has=b.company!=null,mx=Math.max(b.company||0,b.national)||1;
+    return `<div class="brow"><div class="bh"><b>${esc(b.label)}</b><span>${has?`You ${f(b.company)} · ${b.natLabel||'National'} ${f(b.national)}`:`National ${f(b.national)}`}</span>${has?`<em class="pill ${b.below?'bad':'ok'}">${b.below?'Below':'Meets'} · ${b.diff_pct>0?'+':''}${b.diff_pct}%</em>`:''}</div><div class="bar2" title="National"><i class="nat" style="width:${b.national/mx*100}%"></i></div>${has?`<div class="bar2" title="You"><i class="${b.below?'low':'hi'}" style="width:${b.company/mx*100}%"></i></div>`:''}</div>`}).join('');
+}
+function spreadHtml(){
+  const sp=LIVE.pay_spread_by_level;if(!sp.length)return '<p class="note">Not enough people per level to show ranges.</p>';
+  const lo=Math.min(...sp.map(s=>s.min)),hi=Math.max(...sp.map(s=>s.max)),p=v=>(v-lo)/(hi-lo||1)*100;
+  return sp.map(s=>`<div class="sp"><b>${esc(s.level)}</b><div class="rg"><u style="left:${p(s.min)}%;width:${p(s.max)-p(s.min)}%"></u><i style="left:${p(s.p25)}%;width:${p(s.p75)-p(s.p25)}%"></i><s style="left:${p(s.median)}%"></s></div><span>${fmt(s.median)} median</span></div>`).join('');
+}
+function repHtml(){
+  const r=LIVE.representation_by_level;if(!r.length)return '<p class="note">Not enough people per level to show.</p>';
+  return r.map(x=>`<div><div class="rl"><span>${esc(x.level)} <small style="color:var(--muted)">(n=${x.n})</small></span><b>${Math.round(x.pct_women*100)}%</b></div><div class="rep"><i style="width:${x.pct_women*100}%"></i><s style="left:${NAT.pct_women*100}%"></s></div></div>`).join('');
+}
+
+function render(skip){
+  skip=skip===true;
+  const L=!!LIVE,min=+$('#min').value,fx=fixList(),n=nfix();
+  const cost=fx.reduce((a,f)=>a+f.cost*lvl(f.name)/100,0),total=fx.reduce((a,f)=>a+f.cost,0),closed=fx.reduce((a,f)=>a+f.pts*lvl(f.name)/100,0);
+  let base,now,s4;
+  if(LENS!=='gender'){base=allIssues().reduce((a,f)=>a+f.pts,0);s4=['','']}
+  else if(L){
+    const S=LIVE.summary;
+    base=S.adjusted_gap_pct!=null?-S.adjusted_gap_pct:(S.raw_gap_pct!=null?-S.raw_gap_pct:null);
+    s4=[S.headcount.toLocaleString(),'Employees analyzed'];
+  }else{
+    base=baseDemo;
+    s4=[P1(-D.teams.reduce((a,t)=>a+val(t,5)*t.hc,0)/D.teams.reduce((a,t)=>a+t.hc,0)),'Gap for people with disabilities'];
+  }
+  now=base==null?null:(base<=0?base:Math.max(0,base-closed));
+  // headline
+  if(base==null){$('#lead').textContent='Not enough data to compare women and men without exposing small groups.';$('#sub').textContent='Try a larger file. Groups smaller than the minimum size are never reported.'}
+  else{
+    $('#lead').textContent=nfix()?`With these fixes, the gap falls from ${P1(base)} to ${P1(now)}.`:(base>0?`Women are paid ${P1(base)} less than men in comparable roles.`:'No pay gap against women was found in comparable roles.');
+    $('#sub').textContent=nfix()?`You are fixing ${n} of ${fx.length} issues in the sandbox. Review the table to see which groups still lag.`
+      :(L?`Closing every gap in the sandbox would cost about ${fmt(total)} a year. Before adjusting for role, the overall gap is ${LIVE.summary.raw_gap_pct!=null?P1(-LIVE.summary.raw_gap_pct):'not available'}.`
+        :`Closing every team’s gap would cost about ${fmt(total)} a year. Drag the sliders in the sandbox to see the effect.`);
+  }
+  $('#stats').innerHTML=`<div class="stat"><b>${base==null?'—':P1(base)}</b><small>Women’s gap today</small></div><div class="stat"><b>${now==null?'—':P1(now)}</b><small>Women’s gap after fixes</small></div><div class="stat"><b>${fmt(cost)}</b><small>Yearly cost of selected fixes</small></div><div class="stat"><b>${s4[0]}</b><small>${s4[1]}</small></div>`;
+  if(LENS!=='gender')lensHead(min,base,now,cost,total,n,fx);
+  // top summary and group comparison
+  const sm=summaryItems(min);
+  $('#summN').textContent=L?'The largest gaps and shortfalls found in your data, worst first. Negative means paid less or below national.':'The largest gaps across every team and group, worst first. Updates as you change the sandbox.';
+  $('#summ').innerHTML=sm.length?sm.map(w=>`<div class="sg ${esc(w.sev)}"><span class="pill">${esc(w.sev)}</span><div><b>${esc(w.label)} · ${w.gap>0?'+':''}${w.gap.toFixed(1)}%</b><p>${esc(w.detail)}</p></div></div>`).join(''):'<p class="note">No gaps to report.</p>';
+  $('#grpN').textContent=LENS!=='gender'?'Each group is compared with everyone else. Negative means paid less.':!L?'Average gap for each group across all teams, weighted by group size. Negative means paid less.':(LIVE.group_gaps&&LIVE.group_gaps.length?'Women are compared with men in the same roles. Other groups are compared with everyone else.':'Your analysis only compares women with men so far. Add ethnicity and disability data to compare those groups too.');
+  $('#grp').innerHTML=groupHtml(groupRows(min,base,now));
+  // heat table
+  $('#viewwrap').hidden=!L||LENS!=='gender';
+  $('#heat').style.minWidth=L?'560px':'700px';
+  $('#heatT').textContent=L?'Pay gap by group':'Pay gap by team and group';
+  $('#heatN').textContent=L?`Women vs men average pay. Negative means women are paid less. Groups with fewer than ${min} women or men are hidden.`:'Adjusted for role, level and tenure. Negative means paid less than the comparison group.';
+  const hid=LENS!=='gender'?heatLens(min):(L?heatLive(min):heatDemo(min));
+  // fixes
+  if(!skip){
+    $('#fixes').innerHTML=fx.length?fx.map(rowHtml).join(''):`<p class="note">${LENS==='gender'?'No gaps against women to fix.':'No gaps found for this group type, so there is nothing to fix.'}</p>`;
+    const more=allIssues().filter(f=>!f.shown);
+    $('#addiss').innerHTML='<option value="">Add another issue…</option>'+more.map(f=>`<option value="${esc(f.name)}">${esc(f.label)} (${P1(-f.gap)} gap${f.overlap?', overlaps roles':''})</option>`).join('');
+    $('#addwrap').hidden=!more.length;
+  }
+  fx.forEach(syncRow);
+  $('#goals').innerHTML=GOALS.size?'<p class="note" style="margin:0 0 4px">Goals to track. These are not pay fixes, so they don’t change the numbers.</p>'+[...GOALS].map(g=>`<div class="goal"><span>${esc(g)}</span><button type="button" class="rmx" data-g="${esc(g)}">Remove</button></div>`).join(''):'';
+  // benchmarks and suggestions
+  $('#benchN').textContent=LENS!=='gender'?'Each group’s share of your workforce and its pay, against placeholder national figures and parity. The furthest below comes first.':L?'Your company against national figures. The furthest below national comes first.':'This is the national data we compare against. Upload your payroll above to see how you compare.';
+  $('#bench').innerHTML=benchHtml();
+  SUG=L?(LENS==='gender'?LIVE.suggestions:lensSug(min)):[];
+  $('#sugg').innerHTML=L?(SUG.length?SUG.map((s,i)=>sugHtml(s,i,fx)).join(''):'<p class="note">Nothing stood out here, so there are no suggestions.</p>'):'<p class="note">Upload your payroll to get suggestions tied to your own numbers.</p>';
+  // live-only charts vs demo trend
+  $('#liveRow').hidden=!L;$('#trendP').hidden=L||LENS!=='gender';
+  if(L){const G=LENS==='gender';
+    $('#spT').textContent=G?'Pay range by level':'Pay range by group';
+    $('#spN').textContent=(G?'':'Each group’s pay. ')+'Bar is the middle half of pay, the dark tick is the median, the thin line is the full range.';
+    $('#repT').textContent=G?'Women by level':'Representation by level';
+    $('#repN').textContent=G?'Black tick is the national share of women in the workforce.':'Share of each level made up of the group. Black tick is the national share where we have one.';
+    $('#spread').innerHTML=G?spreadHtml():spreadLens();$('#rep').innerHTML=G?repHtml():repLens()}
+  else if(LENS==='gender')trend(now);
+  // admin
+  $('#minv').textContent=min;
+  $('#supnote').textContent=L?`${hid} groups are hidden in the current table. The server also never reports groups under ${LIVE.summary.min_group}, so this slider can only hide more.`:`${hid} of ${D.teams.length*D.cols.length} cells are hidden at this setting.`;
+  $('#src').textContent=L?`Showing your payroll: ${LIVE.summary.headcount.toLocaleString()} employees${UP?` from ${UP.name}`:''}.`:'Showing demo data. Upload a payroll file on the Dashboard to replace it.';
+  $('#reset').hidden=!L;
+  $('#chip').textContent=L?'Your payroll · Live analysis':'Demo company · Synthetic demo data';
+  $('#upinfo').innerHTML=UP?mapHtml(UP):'<p class="note" style="margin:0">No file uploaded yet.</p>';
+  $('#admtab').innerHTML='<thead><tr><th>Issue</th><th>People</th><th>Full cost</th><th>Closing</th><th>Planned cost</th></tr></thead><tbody>'+fx.map(f=>`<tr><td>${esc(f.name)}</td><td>${f.ppl}</td><td>${fmt(f.cost)}</td><td>${lvl(f.name)?lvl(f.name)+'%':'Not selected'}</td><td>${fmt(f.cost*lvl(f.name)/100)}</td></tr>`).join('')+'</tbody>';
+}
+// ---- Sandbox rows ----
+function rowHtml(f,i){
+  return `<div class="iss" id="iss${i}" style="--tc:${f.col}"><div class="ih"><b>${esc(f.label)}</b><em class="pill ${f.sev}">${f.sev}</em>${f.extra?`<button type="button" class="rmx" data-rm="${esc(f.name)}">Remove</button>`:''}</div><span class="im">${f.who?esc(f.who)+' are paid':'Women paid'} ${P1(-f.gap)} less · ${f.ppl} people below target · ${fmt(f.cost)} a year to close fully${f.overlap?' · overlaps role gaps':''}</span><label class="sl"><span>Close <b data-v="${i}"></b> of this gap</span><input type="range" min="0" max="100" step="5" value="${lvl(f.name)}" data-s="${esc(f.name)}" aria-label="How much of the ${esc(f.label)} gap to close"></label><span class="io" data-o="${i}"></span></div>`;
+}
+function syncRow(f,i){ // updates text without rebuilding, so dragging a slider stays smooth
+  const l=lvl(f.name),v=$(`[data-v="${i}"]`),o=$(`[data-o="${i}"]`),r=$('#iss'+i);
+  if(!v||!o||!r)return;
+  v.textContent=l+'%';
+  o.textContent=l?`Closes ${(f.pts*l/100).toFixed(1)} points · ${fmt(f.cost*l/100)} a year`:'Not fixing this one yet';
+  r.classList.toggle('on',l>0);
+}
+// ---- Suggestions -> sandbox ----
+// A suggestion that matches an issue opens that issue's fix; the rest (leadership, disability, pay level) become tracked goals.
+const sugFix=s=>allIssues().find(f=>f.name===s.area)||null;
+function sugHtml(s,i){
+  const f=sugFix(s),on=f?lvl(f.name)>0:GOALS.has(s.area);
+  const btn=on?`<button class="btn ghost sgb" disabled>${f?'In sandbox ✓':'Tracking as goal ✓'}</button>`:`<button type="button" class="btn ghost sgb" data-sg="${i}">${f?'Fix in sandbox':'Track as goal'}</button>`;
+  return `<div class="sg ${esc(s.priority)}"><span class="pill">${esc(s.priority)}</span><div><b>${esc(s.title||s.area)}</b><p>${esc(s.text)}</p>${btn}</div></div>`;
+}
+function addSug(i){
+  const s=SUG[i],f=sugFix(s);
+  if(!f)GOALS.add(s.area);else{if(f.extra)EXTRA.add(f.name);SB[f.name]=100}
+  render();
+}
+
 function trend(now){
   const pts=D.trend, W=640,L=44,R=24,T=16,B=170, n=pts.length+1, x=i=>L+i*(W-L-R)/(n-1), y=v=>B-(v/10)*(B-T);
-  const proj=applied.size?now:5.8;
+  const proj=nfix()?now:5.8;
   let s='';[0,2,4,6,8,10].forEach(v=>s+=`<line x1="${L}" x2="${W-R}" y1="${y(v)}" y2="${y(v)}" style="stroke:var(--line)"/><text x="${L-8}" y="${y(v)+4}" text-anchor="end">${v}%</text>`);
   const line=pts.map((p,i)=>`${i?'L':'M'}${x(i)},${y(p[1])}`).join(' ');
   s+=`<path d="${line}" fill="none" stroke-width="3" style="stroke:var(--hot)"/>`;
-  s+=`<path d="M${x(pts.length-1)},${y(pts[pts.length-1][1])} L${x(pts.length)},${y(proj)}" fill="none" stroke-width="3" stroke-dasharray="6 5" style="stroke:${applied.size?'var(--accent)':'var(--muted)'}"/>`;
+  s+=`<path d="M${x(pts.length-1)},${y(pts[pts.length-1][1])} L${x(pts.length)},${y(proj)}" fill="none" stroke-width="3" stroke-dasharray="6 5" style="stroke:${nfix()?'var(--accent)':'var(--muted)'}"/>`;
   pts.forEach((p,i)=>s+=`<circle cx="${x(i)}" cy="${y(p[1])}" r="4" style="fill:var(--hot)"/><text x="${x(i)}" y="196" text-anchor="middle">${p[0]}</text>`);
-  s+=`<circle cx="${x(pts.length)}" cy="${y(proj)}" r="5" style="fill:${applied.size?'var(--accent)':'var(--muted)'}"/><text x="${x(pts.length)}" y="196" text-anchor="middle">Q4 ’26</text><text x="${x(pts.length)}" y="${y(proj)-12}" text-anchor="middle" style="fill:var(--ink);font-weight:600">${proj.toFixed(1)}%</text>`;
+  s+=`<circle cx="${x(pts.length)}" cy="${y(proj)}" r="5" style="fill:${nfix()?'var(--accent)':'var(--muted)'}"/><text x="${x(pts.length)}" y="196" text-anchor="middle">Q4 ’26</text><text x="${x(pts.length)}" y="${y(proj)-12}" text-anchor="middle" style="fill:var(--ink);font-weight:600">${proj.toFixed(1)}%</text>`;
   $('#trend').innerHTML=s;
 }
+
+// ---- Group data for the ethnicity and disability views ----
+function groupData(dim,min){
+  if(LIVE){
+    const g=(LIVE.groups||{})[dim];
+    if(!g||!g.available)return{ok:false};
+    const parts=[...new Set(g.groups.flatMap(c=>c.by_level.map(x=>x.level)))];
+    const rows=g.groups.filter(c=>c.n>=min).map(c=>{const k=dim+':'+c.group;return{label:c.group,n:c.n,gap:scl(c.gap_pct,k),cost:c.cost_to_close,cells:parts.map(p=>{const x=c.by_level.find(y=>y.level===p);return x&&x.n>=min?{gap:scl(x.gap_pct,k),n:x.n}:null})}});
+    return{ok:true,parts,rows,hidden:g.hidden+g.groups.length-rows.length,by:'level'};
+  }
+  const idx=dim==='ethnicity'?[1,2,3]:[5];
+  const rows=idx.map(j=>{let s=0,n=0;D.teams.forEach(t=>{if(t.g[j][1]>=min){s+=gv(t,j,dim)*t.g[j][1];n+=t.g[j][1]}});
+    return{label:D.cols[j],n,gap:n?s/n:null,cost:null,cells:D.teams.map(t=>t.g[j][1]>=min?{gap:gv(t,j,dim),n:t.g[j][1]}:null)}});
+  return{ok:true,parts:D.teams.map(t=>t.name),rows,hidden:rows.filter(r=>r.gap==null).length,by:'team'};
+}
+// ---- Lens: switch the dashboard between gender, ethnicity and disability ----
+let LENS='gender';
+const LCOLS={ethnicity:[1,2,3],disability:[5]};
+function lensHead(min,base,now,cost,total,n,fx){
+  const T=LENS,d=groupData(LENS,min);
+  if(!d.ok){$('#lead').textContent=`Your file has no ${T} column, so there is nothing to compare.`;$('#sub').textContent='Add that column and upload again, or switch back to Gender.';return}
+  const rows=d.rows.filter(r=>r.gap!=null).sort((a,b)=>a.gap-b.gap),w=rows[0];
+  $('#lead').textContent=!w?'No group is large enough to report without exposing small groups.':n?`With these fixes, the average ${T} gap falls from ${P1(base)} to ${P1(now)}.`:base>0?`The average ${T} gap is ${P1(base)}, widest for ${w.label} at ${P1(-w.gap)}.`:`No ${T} pay gap was found.`;
+  $('#sub').textContent=n?`You are fixing ${n} of ${fx.length} groups in the sandbox. Review the table to see which groups still lag.`:`Each group is compared with everyone else${LIVE?', in the same role where groups are large enough':' and averaged across teams (demo data)'}. Closing every gap would cost about ${fmt(total)} a year.`;
+  const hc=LIVE?LIVE.summary.headcount:D.teams.reduce((a,t)=>a+t.hc,0);
+  $('#stats').innerHTML=`<div class="stat"><b>${P1(base)}</b><small>Average gap today</small></div><div class="stat"><b>${P1(now)}</b><small>Average gap after fixes</small></div><div class="stat"><b>${fmt(cost)}</b><small>Yearly cost of selected fixes</small></div><div class="stat"><b>${hc.toLocaleString()}</b><small>${LIVE?'Employees analyzed':'Employees in demo'}</small></div>`;
+}
+const NATETH={Black:.13,'Hispanic/Latino':.19,Asian:.07}; // PLACEHOLDER workforce shares, replace with current EEOC or BLS data
+const DEMO_PAY=95000;
+let SUG=[];
+const scl=(gap,key)=>gap<0?gap*(1-lvl(key)/100):gap;
+const gv=(t,j,dim)=>t.g[j][0]*(1-lvl(dim+':'+D.cols[j])/100);
+function lensIssues(){
+  const min=+$('#min').value,raw=[];
+  if(LIVE){const g=(LIVE.groups||{})[LENS];if(g&&g.available)g.groups.filter(c=>c.n>=min).forEach(c=>raw.push({label:c.group,n:c.n,gap:c.gap_pct,cost:c.cost_to_close,ppl:c.people_below_target,sev:c.severity}))}
+  else(LCOLS[LENS]||[]).forEach(j=>{let s=0,n=0;D.teams.forEach(t=>{if(t.g[j][1]>=min){s+=t.g[j][0]*t.g[j][1];n+=t.g[j][1]}});if(n){const gap=s/n;raw.push({label:D.cols[j],n,gap,cost:Math.round(-gap/100*DEMO_PAY*n),ppl:n,sev:sevOf(gap)})}});
+  const N=raw.reduce((a,r)=>a+r.n,0)||1;
+  return raw.filter(r=>r.gap<0).sort((a,b)=>a.gap-b.gap).map((r,i)=>({name:`${LENS}:${r.label}`,label:r.label,who:r.label,gap:r.gap,cost:r.cost,ppl:r.ppl,pts:-r.gap*r.n/N,sev:r.sev,shown:true,col:TC[i%6]}));
+}
+function lensSug(min){
+  const out=[],g=(LIVE.groups||{})[LENS];if(!g||!g.available)return out;
+  const H=LIVE.summary.headcount||1;
+  g.groups.filter(c=>c.n>=min).forEach(c=>{
+    if(c.severity==='high'||c.severity==='medium')out.push({priority:c.severity,area:`${LENS}:${c.group}`,title:c.group,text:`${c.group} earn ${Math.abs(c.gap_pct)}% less than everyone else (${c.basis}). About ${c.people_below_target} people are below the others’ median, and closing the gap costs about $${c.cost_to_close.toLocaleString()} a year. Audit pay bands and starting offers.`});
+    const nat=LENS==='ethnicity'?NATETH[c.group]:null;
+    if(nat&&c.n/H<nat*.8)out.push({priority:'low',area:`Representation: ${c.group}`,title:`Representation: ${c.group}`,text:`${c.group} is ${(c.n/H*100).toFixed(1)}% of your employees against about ${(nat*100).toFixed(0)}% nationally. Review recruiting reach and promotion rates.`});
+  });
+  if(LENS==='disability')(LIVE.suggestions||[]).filter(s=>s.area==='Disability inclusion').forEach(s=>out.push({...s,title:s.area}));
+  const o={high:0,medium:1,low:2};return out.sort((a,b)=>o[a.priority]-o[b.priority]);
+}
+function benchLens(){
+  const min=+$('#min').value,rows=[],mk=(label,kind,company,national,extra)=>({label,kind,company,national,diff_pct:Math.round((company-national)/national*1000)/10,below:company<national,...extra});
+  if(LIVE){
+    const g=(LIVE.groups||{})[LENS],H=LIVE.summary.headcount||1;if(!g||!g.available)return[];
+    g.groups.filter(c=>c.n>=min).forEach(c=>{
+      const nat=LENS==='ethnicity'?NATETH[c.group]:NAT.pct_disability;
+      if(nat)rows.push(mk(LENS==='ethnicity'?`% ${c.group} in workforce`:'% employees with a disability','%',c.n/H,nat));
+      rows.push(mk(`${c.group} pay vs everyone else`,'ratio',c.avg_pay/c.avg_others,1,{natLabel:'Parity'}));
+    });
+  }else(LCOLS[LENS]||[]).forEach(j=>{
+    let n=0,s=0,w=0;const H=D.teams.reduce((a,t)=>a+t.hc,0),nat=LENS==='ethnicity'?NATETH[D.cols[j]]:NAT.pct_disability;
+    D.teams.forEach(t=>{n+=t.g[j][1];if(t.g[j][1]>=min){s+=gv(t,j,LENS)*t.g[j][1];w+=t.g[j][1]}});
+    rows.push(mk(LENS==='ethnicity'?`% ${D.cols[j]} in workforce`:'% employees with a disability','%',n/H,nat));
+    if(w)rows.push(mk(`${D.cols[j]} pay vs everyone else`,'ratio',1+s/w/100,1,{natLabel:'Parity'}));
+  });
+  return rows.sort((a,b)=>a.diff_pct-b.diff_pct);
+}
+function spreadLens(){
+  const g=(LIVE.groups||{})[LENS],sp=g&&g.available?g.groups.filter(c=>c.spread):[];
+  if(!sp.length)return '<p class="note">Not enough people per group to show ranges.</p>';
+  const lo=Math.min(...sp.map(c=>c.spread.min)),hi=Math.max(...sp.map(c=>c.spread.max)),p=v=>(v-lo)/(hi-lo||1)*100;
+  return sp.map(c=>{const s=c.spread;return `<div class="sp"><b>${esc(c.group)}</b><div class="rg"><u style="left:${p(s.min)}%;width:${p(s.max)-p(s.min)}%"></u><i style="left:${p(s.p25)}%;width:${p(s.p75)-p(s.p25)}%"></i><s style="left:${p(s.median)}%"></s></div><span>${fmt(s.median)} median</span></div>`}).join('');
+}
+function repLens(){
+  const g=(LIVE.groups||{})[LENS];if(!g||!g.available||!g.groups.length)return '<p class="note">Not enough people per level to show.</p>';
+  return g.groups.filter(c=>!/^white/i.test(c.group)).map(c=>{const nat=LENS==='ethnicity'?NATETH[c.group]:NAT.pct_disability;
+    return `<div class="gh">${esc(c.group)}</div>`+(c.rep_by_level&&c.rep_by_level.length?c.rep_by_level.map(x=>`<div><div class="rl"><span>${esc(x.level)} <small style="color:var(--muted)">(n=${x.n})</small></span><b>${Math.round(x.pct*100)}%</b></div><div class="rep"><i style="width:${x.pct*100}%"></i>${nat?`<s style="left:${nat*100}%"></s>`:''}</div></div>`).join(''):'<p class="note">Not enough people per level.</p>')}).join('');
+}
+function heatLens(min){
+  const d=groupData(LENS,min),T=LENS==='ethnicity'?'Ethnicity':'Disability';
+  $('#heatT').textContent=`${T} pay gap by ${d.ok?d.by:'group'}`;
+  $('#heatN').textContent=`Each group against everyone else. Negative means paid less. Groups with fewer than ${min} people are hidden.`;
+  if(!d.ok||!d.parts.length){$('#heat').innerHTML='<tbody><tr><td class="sup">Nothing to show</td></tr></tbody>';return 0}
+  d.rows.sort((a,b)=>(a.gap??99)-(b.gap??99));
+  let h='<thead><tr><th></th>'+d.parts.map(p=>`<th scope="col">${esc(p)}</th>`).join('')+'</tr></thead><tbody>',hid=0;
+  d.rows.forEach(r=>{h+=`<tr><th class="row" scope="row">${esc(r.label)}</th>`+r.cells.map(c=>{if(!c){hid++;return`<td class="sup" title="Hidden to protect privacy">n&lt;${min}</td>`}const[bg,ink]=heatBg(c.gap);return`<td style="background:${bg};color:var(${ink})">${c.gap.toFixed(1)}%</td>`}).join('')+'</tr>'});
+  $('#heat').innerHTML=h+'</tbody>';return hid;
+}
+$('#lens').addEventListener('click',e=>{const b=e.target.closest('[data-lens]');if(!b)return;LENS=b.dataset.lens;document.querySelectorAll('#lens button').forEach(x=>x.setAttribute('aria-selected',x===b));render()});
+
 // ---- Events ----
 document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>{
   document.querySelectorAll('nav button').forEach(x=>x.setAttribute('aria-selected',x===b));
   ['dash','up','adm','agent'].forEach(id=>$('#'+id).hidden=id!==b.dataset.tab)});
-$('#fixes').addEventListener('change',e=>{const n=e.target.dataset.t;e.target.checked?applied.add(n):applied.delete(n);render()});
-$('#all').onclick=()=>{D.teams.forEach(t=>applied.add(t.name));render()};
-$('#none').onclick=()=>{applied.clear();render()};
-$('#min').oninput=render;
-$('#role').innerHTML=Object.keys(D.roles).map(r=>`<option>${r}</option>`).join('');
-$('#team').innerHTML=D.teams.map(t=>`<option>${t.name}</option>`).join('');
-$('#form').onsubmit = async e => {
+$('#fixes').addEventListener('input',e=>{const n=e.target.dataset.s;if(n==null)return;SB[n]=+e.target.value;render(true)});
+$('#fixes').addEventListener('click',e=>{const b=e.target.closest('[data-rm]');if(!b)return;EXTRA.delete(b.dataset.rm);delete SB[b.dataset.rm];render()});
+$('#goals').addEventListener('click',e=>{const b=e.target.closest('[data-g]');if(b){GOALS.delete(b.dataset.g);render()}});
+$('#addiss').onchange=e=>{const v=e.target.value;if(!v)return;EXTRA.add(v);SB[v]=100;render()};
+$('#all').onclick=()=>{fixList().forEach(f=>SB[f.name]=100);render()};
+$('#none').onclick=()=>{SB={};render()};
+$('#min').oninput=()=>render(true);
+$('#view').onchange=()=>render(true);
+$('#sugg').addEventListener('click',e=>{const b=e.target.closest('[data-sg]');if(b)addSug(+b.dataset.sg)});
+$('#reset').onclick=()=>{LIVE=null;UP=null;SB={};EXTRA.clear();GOALS.clear();$('#pres').hidden=true;$('#pfile').value='';render()};
+// ---- Check my pay: compare one salary with national figures ----
+$('#role').innerHTML=Object.keys(NATROLES).map(r=>`<option>${r}</option>`).join('')+'<option value="other">Other (all jobs)</option>';
+$('#level').innerHTML=Object.keys(LVLX).map(l=>`<option>${l}</option>`).join('');
+$('#level').value='Mid';
+$('#role').onchange=()=>{$('#level').disabled=$('#role').value==='other'};
+$('#form').onsubmit=e=>{
   e.preventDefault();
-
-  const result = $('#result');
-  const lo = Number($('#lo').value);
-  const hi = Number($('#hi').value);
-  result.hidden = false;
-
-  if (
-    !Number.isInteger(lo) ||
-    !Number.isInteger(hi) ||
-    lo <= 0 ||
-    hi <= 0 ||
-    hi < lo
-  ) {
-    result.textContent =
-      'Enter positive whole-dollar salaries. The high end must be at least the low end.';
-    return;
-  }
-
-  if (!$('#consent').checked) {
-    result.textContent = 'Please agree before submitting.';
-    return;
-  }
-
-  const button = e.target.querySelector('[type="submit"]');
-  button.disabled = true;
-  result.textContent = 'Saving…';
-
-  try {
-    const response = await fetch('/submit', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        position: $('#role').value,
-        salary_min: lo,
-        salary_max: hi,
-        team: $('#team').value,
-        consent: $('#consent').checked,
-        disability_status: $('#dis').checked
-          ? 'Has disability'
-          : null
-      })
-    });
-
-    const data = await response.json();
-
-    if (!response.ok) {
-      throw new Error(
-        typeof data.detail === 'string'
-          ? data.detail
-          : 'Could not save. Check your entries and try again.'
-      );
-    }
-
-    result.textContent =
-      'Saved! Your role, team, salary range, consent, and optional disclosure were saved.';
-  } catch (error) {
-    result.textContent = 'Submission failed: ' + error.message;
-  } finally {
-    button.disabled = false;
-  }
+  const out=$('#result'),r=$('#role').value,lv=$('#level').value,raw=Number($('#sal').value);
+  out.hidden=false;
+  if(!(raw>0)){out.textContent='Enter a pay amount greater than zero.';return}
+  const sal=raw*PER[$('#period').value],other=r==='other';
+  const med=other?NAT.avg_annual_pay:NATROLES[r]*LVLX[lv],p25=med*.85,p75=med*1.15;
+  const desc=other?'all jobs':`a ${lv.toLowerCase()}-level ${r}`;
+  const diff=(sal-med)/med*100,st=sal<p25?'below':sal>p75?'above':'within';
+  const pct=Math.min(99,Math.max(1,Math.round(cdf(Math.log(sal/med)/(Math.log(1.15)/.6745))*100)));
+  const lo=med*.6,hi=med*1.5,pos=v=>Math.min(100,Math.max(0,(v-lo)/(hi-lo)*100));
+  const label={below:'Below the typical range',within:'Within the typical range',above:'Above the typical range'}[st];
+  const cls={below:'bad',within:'low',above:'ok'}[st];
+  const tip={below:`You are about ${F['$'](p25-sal)} a year under the bottom of the range. If your experience and location are typical, this is worth raising or checking against local data.`,
+    within:'Your pay sits in the middle half of what is typical, so nothing here looks unusual.',
+    above:`You are about ${F['$'](sal-p75)} a year over the top of the range. That is common with more experience, a high-cost area or a specialty, but it is worth knowing.`}[st];
+  const vsAll=other?'':`<p class="note" style="margin:8px 0 0">Across all jobs the national average is ${F['$'](NAT.avg_annual_pay)}, so you earn ${Math.abs((sal-NAT.avg_annual_pay)/NAT.avg_annual_pay*100).toFixed(0)}% ${sal>=NAT.avg_annual_pay?'more':'less'} than that.</p>`;
+  out.innerHTML=`<span class="pill ${cls}">${label}</span>
+<p style="margin:10px 0 0"><b>${F['$'](sal)} a year</b> is ${Math.abs(diff).toFixed(0)}% ${diff>=0?'above':'below'} the national median of ${F['$'](med)} for ${desc}. That is about the ${ord(pct)} percentile.</p>
+<div class="scale" role="img" aria-label="Your pay against the typical range"><i style="left:${pos(p25)}%;width:${pos(p75)-pos(p25)}%"></i><s style="left:${pos(med)}%"></s><u style="left:${pos(sal)}%"></u></div>
+<div class="rl"><span>${F['$'](p25)}</span><span>Median ${F['$'](med)}</span><span>${F['$'](p75)}</span></div>
+<p style="margin:12px 0 0">${tip}</p>${vsAll}
+<p class="note" style="margin:12px 0 0">The typical range is the middle half of pay. National figures are placeholders until replaced with current BLS data, and location, industry, company size and experience all change what is normal.</p>`;
 };
-// ---- Payroll upload ----
-const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+// ---- Payroll upload: one click = upload, load, analyze, update the dashboard ----
 async function api(url,body){
   const r=await fetch(url,{method:'POST',body});
   const j=await r.json().catch(()=>({}));
   if(!r.ok)throw new Error(j.detail||'Something went wrong. Try again.');
   return j}
+const mapHtml=j=>`<div class="sc short" tabindex="0" role="region" aria-label="How the AI read your file"><ul>${Object.entries(j.mapping.columns).filter(e=>e[1]).map(e=>`<li>${esc(e[0])}: column “${esc(e[1])}”</li>`).join('')}</ul><p>Salaries are read as ${esc(j.mapping.salary_period)} figures.</p><b>Levels it assigned</b><ul>${Object.entries(j.level_map).map(e=>`<li>${esc(e[0])}: ${esc(e[1])}</li>`).join('')}</ul><p>${j.accepted} rows loaded, ${j.rejected} rejected.</p></div>`;
 $('#pgo').onclick=async()=>{
-  const f=$('#pfile').files[0],out=$('#pres');out.hidden=false;
+  const f=$('#pfile').files[0],out=$('#pres'),btn=$('#pgo');out.hidden=false;
   if(!f){out.textContent='Choose a file first.';return}
-  out.textContent='Reading your file. This can take a few seconds…';
+  btn.disabled=true;out.textContent='Reading your file. This can take a few seconds…';
+  let loaded=false;
   try{
     const fd=new FormData();fd.append('file',f);
     const j=await api('/upload',fd);
-    const cols=Object.entries(j.mapping.columns).filter(e=>e[1]).map(e=>`<li>${esc(e[0])}: column “${esc(e[1])}”</li>`).join('');
-    const lv=Object.entries(j.level_map).map(e=>`<li>${esc(e[0])}: ${esc(e[1])}</li>`).join('');
-    out.innerHTML=`<b>Check what the AI found</b><ul>${cols}</ul><p>Salaries are read as ${esc(j.mapping.salary_period)} figures.</p><b>Levels it assigned</b><ul>${lv}</ul><p>${j.accepted} rows are ready and ${j.rejected} were rejected.</p>`
-      +(j.can_confirm?'<button class="btn" id="pok">Looks right, load it</button>':'<p>Too many rows were rejected to load safely. Check the file and try again.</p>');
-    const ok=$('#pok');
-    if(ok)ok.onclick=async()=>{
-      ok.disabled=true;
-      try{
-        const d=await api('/confirm/'+j.id);
-        out.textContent=`Loaded ${d.employees} employees. Running analysis…`;
-        const r=await fetch('/analysis');
-        const a=await r.json().catch(()=>({}));
-        if(!r.ok) throw new Error(a.detail||'Analysis failed.');
-        out.textContent=`Loaded ${d.employees} employees.`;
-        const pre=document.createElement('pre');
-        pre.style.cssText='white-space:pre-wrap;overflow-x:auto;font-size:13px;margin-top:12px';
-        pre.textContent=a.report;
-        out.appendChild(pre);
-      }catch(e){out.textContent=e.message}}
-  }catch(e){out.textContent=e.message}};
+    if(!j.can_confirm){
+      out.innerHTML=`<p>Too many rows were rejected to load safely (${j.rejected} of ${j.accepted+j.rejected}). Check the file and try again.</p>`+(j.rejected_sample.length?`<ul>${j.rejected_sample.map(r=>`<li>Row ${r.row}: ${esc(r.error)}</li>`).join('')}</ul>`:'');
+      return}
+    out.textContent=`Loading ${j.accepted} employees and running the analysis…`;
+    const d=await api('/confirm/'+j.id);loaded=true;
+    const r=await fetch('/analysis');
+    const a=await r.json().catch(()=>({}));
+    if(!r.ok)throw new Error(a.detail||'Analysis failed.');
+    LIVE=a.data;UP={...j,name:f.name};SB={};EXTRA.clear();GOALS.clear();
+    const dims=Object.keys(LIVE.gap_by_dimension||{});
+    $('#view').innerHTML=[['position','By role'],['level','By level'],...dims.map(x=>[x,'By '+x])].map(o=>`<option value="${esc(o[0])}">${esc(o[1])}</option>`).join('');
+    out.innerHTML=`<b>Done.</b> Loaded ${d.employees} employees from ${esc(f.name)}. Everything below now shows your numbers.<details><summary>How the AI read your file</summary>${mapHtml(UP)}</details>`;
+    render();$('#lead').scrollIntoView({block:'start'});
+  }catch(e){out.textContent=loaded?'Your file was loaded, but the analysis failed: '+e.message:e.message}
+  finally{btn.disabled=false}};
 render();
+
 // match the agent orb to the current light/dark theme
 function themeAgent(){const w=document.querySelector('elevenlabs-convai'),c=getComputedStyle(document.documentElement);
   if(!w)return;w.setAttribute('avatar-orb-color-1',c.getPropertyValue('--accent').trim());w.setAttribute('avatar-orb-color-2',c.getPropertyValue('--c3').trim())}

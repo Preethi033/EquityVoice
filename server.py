@@ -1,20 +1,17 @@
 import json, os, re, tempfile, uuid
 from datetime import date
 from io import BytesIO
+from pathlib import Path
 from typing import Literal
-import io, contextlib
-import analyze_db
-import secrets
-from fastapi import Depends
-from fastapi.security import HTTPBasic, HTTPBasicCredentials
 
 import pandas as pd
 from fastapi import FastAPI, File, HTTPException, UploadFile
-from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
 from google import genai
 from google.genai import types
 from pydantic import BaseModel, Field, ValidationError
 
+import analyze_db
 import build_db
 
 if not os.environ.get("ID_SALT"):
@@ -32,6 +29,7 @@ MAX_BYTES = 10_000_000
 class Columns(BaseModel):
     id: str | None
     gender: str | None
+    ethnicity: str | None
     age: str | None
     dob: str | None
     position: str | None
@@ -55,11 +53,13 @@ class Norm(BaseModel):
     gender_map: list[Pair]
     disability_map: list[Pair]
     level_map: list[Pair]
+    ethnicity_map: list[Pair]
 
 
 class Employee(BaseModel):
     id: str
     gender: Literal["Female", "Male", "Nonbinary", "Undisclosed"]
+    ethnicity: str | None = None
     age: int = Field(ge=16, le=100)
     position: str
     level: Literal["Entry", "Mid", "Senior", "Management", "Executive"]
@@ -94,7 +94,8 @@ def get_mapping(raw):
     prompt = (
         "Below are the first rows of a payroll file. The first value on each line is the 0-based row index. "
         "Map the file to these target fields: id, gender, age (or dob if there is no age), "
-        "position (job title), level (seniority, only if a column literally holds it), salary, disability. "
+        "position (job title), level (seniority, only if a column literally holds it), salary, disability, "
+        "ethnicity (race or ethnicity). "
         "For each field give the exact header text of the column, or null if the file has no such column. "
         "header_row is the row index of the header. salary_period must be one of: "
         + ", ".join(PERIODS) + ".\n\n" + sample
@@ -125,18 +126,23 @@ def get_norm(t, m):
         "gender_values": uniq("gender"),
         "disability_values": uniq("disability"),
         "level_source_values": uniq(level_src),
+        "ethnicity_values": uniq("ethnicity"),
     }
     prompt = (
         "Normalize these raw values. gender_map: each raw gender value -> one of "
         + ", ".join(GENDERS) + ". disability_map: each raw value -> the string true or false. "
         "level_map: each raw level_source value -> one of " + ", ".join(LEVELS)
-        + " (infer from the job title if needed). Return one pair per raw value.\n\n" + json.dumps(payload)
+        + " (infer from the job title if needed). "
+        "ethnicity_map: each raw ethnicity value -> a short consistent label such as Asian, Black, "
+        "Hispanic/Latino, White, Two or more, Other or Undisclosed. "
+        "Return one pair per raw value.\n\n" + json.dumps(payload)
     )
     n = ask(Norm, prompt)
     return {
         "gender_map": {p.raw: p.value for p in n.gender_map},
         "disability_map": {p.raw: p.value.strip().lower() == "true" for p in n.disability_map},
         "level_map": {p.raw: p.value for p in n.level_map},
+        "ethnicity_map": {p.raw: p.value for p in n.ethnicity_map},
     }
 
 
@@ -164,6 +170,8 @@ def build_records(t, m, n):
             rec = Employee(
                 id=str(row.get("id")).strip(),
                 gender=n["gender_map"].get(str(row.get("gender", "")).strip(), "Undisclosed"),
+                ethnicity=(n["ethnicity_map"].get(str(row.get("ethnicity", "")).strip(), "Undisclosed")
+                           if m["columns"]["ethnicity"] else None),
                 age=age,
                 position=str(row.get("position")).strip(),
                 level=n["level_map"].get(str(src).strip()),
@@ -178,6 +186,7 @@ def build_records(t, m, n):
 
 app = FastAPI()
 PENDING = {}
+RECORDS = Path(__file__).parent / "records.json"  # last confirmed upload, ids removed
 
 
 @app.post("/upload")
@@ -221,24 +230,28 @@ def confirm(pid: str):
         with os.fdopen(fd, "w") as f:
             json.dump(p["records"], f)
         build_db.main(path)
+        RECORDS.write_text(json.dumps([{k: v for k, v in r.items() if k != "id"} for r in p["records"]]))
     finally:
         os.remove(path)
     PENDING.pop(pid, None)
     return {"employees": len(p["records"])}
-
-from pathlib import Path
-from fastapi.responses import FileResponse
 
 
 @app.get("/")
 def home():
     return FileResponse(Path(__file__).parent / "equityvoice-dashboard.html")
 
+
 @app.get("/analysis")
 def analysis():
-    if not os.path.exists("company.db"):
-        raise HTTPException(404, "Upload and confirm a payroll file first.")
-    buf = io.StringIO()
-    with contextlib.redirect_stdout(buf):
-        analyze_db.main()
-    return {"report": buf.getvalue()}
+    data = analyze_db.analyze()
+    if RECORDS.exists():
+        try:
+            groups, flat = analyze_db.groups_from_records(json.loads(RECORDS.read_text()))
+            for dim in ("ethnicity", "disability"):
+                if not data["groups"][dim]["available"] and groups[dim]["available"]:
+                    data["groups"][dim] = groups[dim]
+                    data["group_gaps"] = [g for g in data["group_gaps"] if g["dimension"] != dim] + [g for g in flat if g["dimension"] == dim]
+        except Exception:
+            pass
+    return {"report": analyze_db.report_text(), "data": data}
